@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>VolvoHackathon-App</display-name>
+ 	<display-name>VolvoHackathonApp</display-name>
+		<resource-ref>
+    	<res-ref-name>jdbc/DefaultDB</res-ref-name>
+    	<res-type>javax.sql.DataSource</res-type>
+	</resource-ref>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <description></description>
+    <display-name>OverviewServlet</display-name>
+    <servlet-name>OverviewServlet</servlet-name>
+    <servlet-class>com.deloitte.classes.soap.OverviewServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description></description>
+    <display-name>JSONServlet</display-name>
+    <servlet-name>JSONServlet</servlet-name>
+    <servlet-class>com.deloitte.classes.json.JSonServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description></description>
+    <display-name>FleetInformation</display-name>
+    <servlet-name>FleetInformation</servlet-name>
+    <servlet-class>com.deloitte.classes.json.FleetInformation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OverviewServlet</servlet-name>
+    <url-pattern>/java/soap/</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>JSONServlet</servlet-name>
+    <url-pattern>/java/json/</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>FleetInformation</servlet-name>
+    <url-pattern>/java/fleet/*</url-pattern>
+  </servlet-mapping>
+</web-app>
