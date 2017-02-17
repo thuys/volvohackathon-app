@@ -96,13 +96,13 @@ public class SoapDynafleet extends TimerTask {
     private String printSOAPResponse(String type, SOAPMessage soapResponse) throws Exception {
     	
     	//Display message
-    	TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    	/*TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         Source sourceContent = soapResponse.getSOAPPart().getContent();
         System.out.println("\nResponse SOAP Message = ");
         StreamResult result = new StreamResult(System.out);
         transformer.transform(sourceContent, result);
-        System.out.println("");
+        System.out.println("");*/
         
         String returnMessage = "";
         

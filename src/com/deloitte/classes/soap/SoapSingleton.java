@@ -10,7 +10,7 @@ public class SoapSingleton {
 	public static HashMap<Integer, Fleet> dataToVisualise;
 
 	Timer t = new Timer();
-    SoapDynafleet dynafleet = new SoapDynafleet(dataToVisualise);
+    private static SoapDynafleet dynafleet;
     
     private static SoapSingleton singleton = new SoapSingleton( );
 
@@ -19,6 +19,8 @@ public class SoapSingleton {
      */
     
     private SoapSingleton() { 
+    	dataToVisualise = new HashMap<Integer, Fleet>();
+    	dynafleet = new SoapDynafleet(dataToVisualise);
     	t.scheduleAtFixedRate(dynafleet, 0, 300000);
     }
 

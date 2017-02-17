@@ -72,7 +72,8 @@ public class FleetInformation extends HttpServlet {
 		//fleetData(request, response);
 		GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        Fleet fleet = dynafleet.getFleet().get(0);
+        HashMap<Integer, Fleet> fleetinfo = dynafleet.getFleet();
+        Fleet fleet = fleetinfo.get(fleetinfo.size()-1);
         System.out.println(gson.toJson(fleet));
 		response.getWriter().println(gson.toJson(fleet));
 		

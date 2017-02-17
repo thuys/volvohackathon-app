@@ -28,6 +28,8 @@ public class SoapTracking {
 		for(int i = 0; i<result.getLength();i++){
 			
 			Truck t = new Truck();	
+			t.information = null;
+			t.status = null; //TODO
 			
 			Node truckArray = result.item(i);
 			NodeList truckArrayNodes = truckArray.getChildNodes();
