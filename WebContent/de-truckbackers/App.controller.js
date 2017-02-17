@@ -32,7 +32,8 @@ onAfterRendering: function() {
 	var controller = this;
 	
 	//this.showLogin();
-	controller.showFleet();
+	//controller.showFleet();
+	controller.createTruckInformation();
 	
 	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 51.21728, lng: 4.41728},
@@ -478,15 +479,49 @@ showFleet: function () {
 	
 },
 
-createTruckInformation: function (truck) {
+createTruckInformation: function () {
 	
 	var controller = this;
 	var alertPanel = sap.ui.getCore().byId("alertPanel");
 	
-	var truckMap = new google.maps.Map(document.getElementById('alertMap'), {
-		center: {lat: truck.lat, lng: truck.lng},
-		zoom: 6
-	});
-}
+	console.log("check");
+	
+//	var truckMap = new google.maps.Map(document.getElementById('alertMap'), {
+//		center: {lat: truck.lat, lng: truck.lng},
+//		zoom: 6
+//	});
+	
+	sliderObj = {
+			text: "Driver Score",
+			value: 80
+	}
+	
+	
+	var valueString = sliderObj.value.toString();
+	console.log(typeof valueString);
+	var sliderString = sliderObj.text + ": " + valueString + "%";
+	
+	var sliderElement = new sap.m.VBox({
+		items: [
+			new sap.m.Text({
+				text: sliderObj.text
+			}).addStyleClass("dashboardTileText"),
+			new sap.m.Slider({
+				width: "250px",
+				text: sliderString,
+				value: sliderObj.value
+			})
+		]
+	})
+	
+	var alertHBox = new sap.m.HBox({});
+	var alertVBox = new sap.m.VBox({})
+	
+	alertHBox.addItem(alertVBox);
+	alertVBox.addItem(sliderElement);
+	alertPanel.addContent(alertHBox);
+	
+},
+
 
 });

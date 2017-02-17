@@ -71,7 +71,9 @@ sap.ui.jsview("de-truckbackers.App", {
 													]
 												}),
 												new sap.m.Panel({
-													id: "alertPanel"
+													id: "alertPanel",
+													width: "100%",
+													heigth: "100%"
 												})
 											]
 										})
