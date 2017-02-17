@@ -73,11 +73,9 @@ public class FleetInformation extends HttpServlet {
 		System.out.println(request.getServletPath());
 		System.out.println(request.getPathInfo());
 		System.out.println("aa");
-		try {
-			fleetData(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  
+		fleetData(request, response);
+
+		
 		
 	}
 
@@ -89,7 +87,7 @@ public class FleetInformation extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
 

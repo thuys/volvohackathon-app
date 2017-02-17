@@ -28,8 +28,8 @@ public class SoapSingleton {
     }
 
     /* Other methods protected by singleton-ness */
-    protected static void demoMethod( ) {
-       System.out.println("demoMethod for singleton");
+    protected static  HashMap<Integer, Fleet> getFleet() {
+       return dataToVisualise;
     }
     
 }
