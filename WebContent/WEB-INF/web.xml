@@ -5,7 +5,7 @@
 		version="2.5"
 		xmlns="http://java.sun.com/xml/ns/javaee">
 
-	<display-name>VolvoHackathon-App</display-name>
+	<display-name>VolvoHackathonApp</display-name>
 <resource-ref>
     <res-ref-name>jdbc/DefaultDB</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
@@ -38,38 +38,6 @@
 		<param-value>false</param-value>
 	</context-param>
 	<!-- END: DEV MODE -->
-
-
-	<!-- ============================================================== -->
-	<!-- Cache Control Filter to prevent caching of any resource        -->
-	<!-- ============================================================== -->
-
-	<filter>
-		<display-name>CacheControlFilter</display-name>
-		<filter-name>CacheControlFilter</filter-name>
-		<filter-class>com.sap.ui5.resource.CacheControlFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>CacheControlFilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CacheControlFilter</filter-name>
-		<url-pattern>*.js</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CacheControlFilter</filter-name>
-		<url-pattern>*.xml</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CacheControlFilter</filter-name>
-		<url-pattern>*.json</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CacheControlFilter</filter-name>
-		<url-pattern>*.css</url-pattern>
-	</filter-mapping>
-
 
 	<!-- ============================================================== -->
 	<!-- UI5 proxy servlet                                              -->
@@ -111,6 +79,13 @@
     <servlet-name>FleetInformation</servlet-name>
     <servlet-class>com.deloitte.classes.json.FleetInformation</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>AlertManagement</display-name>
+    <servlet-name>AlertManagement</servlet-name>
+    <servlet-class>com.deloitte.classes.json.AlertManagement</servlet-class>
+  </servlet>
+  
   <servlet-mapping>
     <servlet-name>OverviewServlet</servlet-name>
     <url-pattern>/java/soap/</url-pattern>
@@ -123,6 +98,11 @@
   <servlet-mapping>
     <servlet-name>FleetInformation</servlet-name>
     <url-pattern>/java/fleet/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>AlertManagement</servlet-name>
+    <url-pattern>/java/alert/*</url-pattern>
   </servlet-mapping>
 
 </web-app>

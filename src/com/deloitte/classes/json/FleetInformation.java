@@ -2,12 +2,8 @@ package com.deloitte.classes.json;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.HashMap;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import com.deloitte.classes.datamodel.Fleet;
-import com.deloitte.classes.datamodel.FleetData;
 import com.deloitte.classes.datamodel.Truck;
+import com.deloitte.classes.soap.SoapDynafleet;
+import com.deloitte.classes.soap.SoapSingleton;
 import com.deloitte.soap.SoapReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,6 +28,9 @@ public class FleetInformation extends HttpServlet {
 	private SoapReader sr;
 	private Connection connection;
 	
+	private SoapSingleton dynafleet;
+	
+
 	//PreparedStatement fleetRequestOverall;
 	
 	@Override
@@ -44,6 +44,12 @@ public class FleetInformation extends HttpServlet {
 //		} catch (NamingException e) {
 //			throw new ServletException(e);
 //		}
+		dynafleet = SoapSingleton.getInstance();
+
+		
+		
+		//TODO: inlezen van de data 
+
 	}
 	
 //	private void fleetRequestPreparation() throws SQLException{
@@ -60,11 +66,16 @@ public class FleetInformation extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(request.getServletPath());
 		System.out.println(request.getPathInfo());
-		try {
-			fleetData(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  
+
+		System.out.println("aa");
+
+		//fleetData(request, response);
+		GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        HashMap<Integer, Fleet> fleetinfo = dynafleet.getFleet();
+        Fleet fleet = fleetinfo.get(fleetinfo.size()-1);
+        System.out.println(gson.toJson(fleet));
+		response.getWriter().println(gson.toJson(fleet));
 		
 	}
 
@@ -76,18 +87,20 @@ public class FleetInformation extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+		/*GsonBuilder builder = new GsonBuilder();
+		Gson gson = builder.create();
+
+		response.getWriter().println(gson.toJson(dataToVisualise.get(1)));
+		
+		Fleet fleet = new Fleet();*/
+
 		Fleet fleet = new Fleet();
 		for(int i = 0; i<1; i++){
 			Truck truck = new Truck();
 			fleet.trucks.add(truck);
 		}
-//		ResultSet rs = connection.prepareCall("select \"TRUCK_ID\",\"TIMESTAMP\",\"LONG\",\"LAT\",\"SPEED\",\"DIRECTION\",\"BREAKING\",\"SHOCK\",\"LOCK_STATUS\",\"MOTOR\" from \"REAL_TIME_DATA\" LIMIT 0,20").executeQuery();
-//        //ArrayList<Row> list = new ArrayList<Row>();
-//        while (rs.next()) {
-//        	System.out.println(rs.getString(1));
-//        }
-//        rs.close();
 		GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         System.out.println(gson.toJson(fleet));
