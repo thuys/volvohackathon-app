@@ -7,7 +7,7 @@ public class TruckInformation {
 	public boolean isInCheckPoint = true;
 	public int driverScore = 0;
 	public int assetScore = 0;
-	public int geoStcore = 0;
+	public int geoScore = 0;
 	public double propabilityOfDamage = 0.01;
 //	public int numberOfSpeedingBreaches = 0;
 //	public int numberOfTrucksIdle = 0;
