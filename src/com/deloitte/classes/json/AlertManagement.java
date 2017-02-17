@@ -33,11 +33,12 @@ public class AlertManagement extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(request.getServletPath());
 		System.out.println(request.getPathInfo());
-		try {
-			truckData(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  
+		truckData(request, response);
+//		try {
+//			truckData(request, response);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}  
 		
 	}
 
@@ -49,7 +50,7 @@ public class AlertManagement extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void truckData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	private void truckData(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Truck truck = new Truck();
 		truck.information.checkPoints.add(new CheckPoint());
 
