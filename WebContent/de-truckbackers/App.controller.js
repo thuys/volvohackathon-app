@@ -32,8 +32,8 @@ onAfterRendering: function() {
 	var controller = this;
 	
 	//this.showLogin();
-	//controller.showFleet();
-	controller.createTruckInformation();
+	controller.showFleet();
+	//controller.createTruckInformation();
 	
 	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 51.21728, lng: 4.41728},
@@ -488,6 +488,7 @@ createTruckInformation: function () {
 	
 	var controller = this;
 	var alertPanel = sap.ui.getCore().byId("alertPanel");
+	alertPanel.destroyContent();
 	
 	console.log("check");
 	
@@ -523,7 +524,7 @@ createTruckInformation: function () {
 					value: truckInfoArray[i].value
 				})
 			]
-		})
+		}).addStyleClass("dashboardTileMargin");
 		
 		var alertHBox = new sap.m.HBox({});
 		var alertVBox = new sap.m.VBox({})
