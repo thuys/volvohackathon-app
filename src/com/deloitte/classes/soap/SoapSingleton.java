@@ -11,15 +11,15 @@ public class SoapSingleton {
 
 	Timer t = new Timer();
     SoapDynafleet dynafleet = new SoapDynafleet(dataToVisualise);
-    // This task is scheduled to run every 10 seconds
     
     private static SoapSingleton singleton = new SoapSingleton( );
 
     /* A private Constructor prevents any other
      * class from instantiating.
      */
+    
     private SoapSingleton() { 
-    	//t.scheduleAtFixedRate(dynafleet, 0, 30000);
+    	t.scheduleAtFixedRate(dynafleet, 0, 300000);
     }
 
     /* Static 'instance' method */
@@ -28,7 +28,7 @@ public class SoapSingleton {
     }
 
     /* Other methods protected by singleton-ness */
-    protected static  HashMap<Integer, Fleet> getFleet() {
+    public HashMap<Integer, Fleet> getFleet() {
        return dataToVisualise;
     }
     
