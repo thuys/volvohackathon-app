@@ -1,0 +1,50 @@
+@CHARSET "ISO-8859-1";
+
+@font-face {
+    font-family: 'Volvo';
+    src: url('../fonts/VolvoBroadPro.otf');
+}
+
+.sapMITBText {
+	font-family: 'Volvo' !important;
+	font-size: 2.5em !important;
+}
+
+/*General styles for components */
+
+/*Remove branding bar*/
+.sapMShellBrandingBar {
+    height: 0px;
+}
+
+.sapMPageHeader::before {
+    border-top-width: 0rem;
+}
+
+.marginTop15 {
+	margin-top: 15px;
+}
+
+.dashboardTileMargin {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	background: #bfbfbf;
+}
+
+.dashboardTileText {
+	font-family: 'Volvo';
+	font-size: 2em;
+}
+
+.dashboardTileValue {
+	font-family: 'Volvo';
+	font-size: 3em;
+}
+
+
+#map {
+	height: 100%;
+	width: 100%;
+}

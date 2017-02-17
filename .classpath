@@ -13,7 +13,15 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="com.sap.ide.ui5.libsclasspathcontainer/SAPUI5 Core Libraries"/>
-	<classpathentry kind="con" path="com.sap.ide.ui5.libsclasspathcontainer/SAPUI5 Server Side Libraries"/>
+	<classpathentry kind="con" path="com.sap.ide.ui5.libsclasspathcontainer/SAPUI5 Core Libraries">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="com.sap.ide.ui5.libsclasspathcontainer/SAPUI5 Server Side Libraries">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
