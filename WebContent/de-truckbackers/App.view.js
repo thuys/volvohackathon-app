@@ -36,13 +36,14 @@ sap.ui.jsview("de-truckbackers.App", {
 									key: "fleetOverview",
 									content: [
 										new sap.m.VBox({
+											width: "100%",
 											items: [
 												new sap.m.Panel({
 													width: "100%",
 													height: "600px",
 													content: [
 														new sap.ui.core.HTML({
-															content: '<div id="overviewMap"></div>'
+															content: '<div id="map"></div>'
 														})
 													]
 												}),
@@ -57,13 +58,12 @@ sap.ui.jsview("de-truckbackers.App", {
 									text: "Alert Management",
 									key: "alertManagement",
 									id: "alertManagement",
-									//enabled: false,
+									enabled: true,
 									content: [
 										new sap.m.VBox({
+											width: "100%",
 											items: [
 												new sap.m.Panel({
-													width: "100%",
-													height: "400px",
 													content: [
 														new sap.ui.core.HTML({
 															content: '<div id="alertMap"></div>'
