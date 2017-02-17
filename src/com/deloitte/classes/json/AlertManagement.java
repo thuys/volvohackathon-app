@@ -84,9 +84,9 @@ public class AlertManagement extends HttpServlet {
 			truck.information.checkPoints.add(new CheckPoint(new Position("47.7968704", "13.0776452"), false));
 			
 			truck.information.isInCheckPoint = false;
-			truck.information.driverScore = 8;
-			truck.information.assetScore = 2;
-			truck.information.geoScore = 0;
+			truck.information.driverScore = 81;
+			truck.information.assetScore = 23;
+			truck.information.geoScore = 3;
 			truck.information.propabilityOfDamage = 0.02;
 			
 		} else if (nr == "2") {
@@ -105,9 +105,9 @@ public class AlertManagement extends HttpServlet {
 			truck.information.checkPoints.add(new CheckPoint(new Position("43.3104101", "5.3656424"), false));
 
 			truck.information.isInCheckPoint = true;
-			truck.information.driverScore = 6;
-			truck.information.assetScore = 7;
-			truck.information.geoScore = 5;
+			truck.information.driverScore = 61;
+			truck.information.assetScore = 76;
+			truck.information.geoScore = 52;
 			truck.information.propabilityOfDamage = 0.44;
 			
 		} else {
@@ -130,9 +130,9 @@ public class AlertManagement extends HttpServlet {
 			truck.information.checkPoints.add(new CheckPoint(new Position("41.9625546", "12.5135679"), false));
 			
 			truck.information.isInCheckPoint = false;
-			truck.information.driverScore = 1;
-			truck.information.assetScore = 8;
-			truck.information.geoScore = 4;
+			truck.information.driverScore = 14;
+			truck.information.assetScore = 83;
+			truck.information.geoScore = 47;
 			truck.information.propabilityOfDamage = 0.63;
 		}
 	}
