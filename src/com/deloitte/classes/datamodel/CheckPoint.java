@@ -1,7 +1,6 @@
 package com.deloitte.classes.datamodel;
 
-import java.util.ArrayList;
-
 public class CheckPoint {
-	public ArrayList<Position> positions;
+	public Position position = new Position();
+	public boolean doneStatus = true;
 }
