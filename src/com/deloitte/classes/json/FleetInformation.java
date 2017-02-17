@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -17,6 +18,7 @@ import javax.sql.DataSource;
 import com.deloitte.classes.datamodel.Fleet;
 import com.deloitte.classes.datamodel.FleetData;
 import com.deloitte.classes.datamodel.Truck;
+import com.deloitte.classes.soap.SoapDynafleet;
 import com.deloitte.soap.SoapReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -31,6 +33,9 @@ public class FleetInformation extends HttpServlet {
 	private SoapReader sr;
 	private Connection connection;
 	
+	private HashMap<Integer, Fleet> dataToVisualise;
+	private SoapDynafleet dynafleet;
+	
 	//PreparedStatement fleetRequestOverall;
 	
 	@Override
@@ -44,6 +49,13 @@ public class FleetInformation extends HttpServlet {
 //		} catch (NamingException e) {
 //			throw new ServletException(e);
 //		}
+		dataToVisualise = new HashMap<Integer, Fleet>();
+		dynafleet = new SoapDynafleet(dataToVisualise);
+		Thread thread = new Thread(dynafleet);
+		thread.start();
+		
+		
+		//TODO: inlezen van de data 
 	}
 	
 //	private void fleetRequestPreparation() throws SQLException{
@@ -60,6 +72,7 @@ public class FleetInformation extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(request.getServletPath());
 		System.out.println(request.getPathInfo());
+		System.out.println("aa");
 		try {
 			fleetData(request, response);
 		} catch (SQLException e) {
@@ -77,7 +90,12 @@ public class FleetInformation extends HttpServlet {
 	}
 	
 	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
-		Fleet fleet = new Fleet();
+		GsonBuilder builder = new GsonBuilder();
+		Gson gson = builder.create();
+
+		response.getWriter().println(gson.toJson(dataToVisualise.get(1)));
+		
+		/*Fleet fleet = new Fleet();
 		for(int i = 0; i<1; i++){
 			Truck truck = new Truck();
 			fleet.trucks.add(truck);
@@ -91,7 +109,7 @@ public class FleetInformation extends HttpServlet {
 		GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         System.out.println(gson.toJson(fleet));
-		response.getWriter().println(gson.toJson(fleet));
+		response.getWriter().println(gson.toJson(fleet));*/
 	}
 
 }
