@@ -60,11 +60,9 @@ public class FleetInformation extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(request.getServletPath());
 		System.out.println(request.getPathInfo());
-		try {
-			fleetData(request, response);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}  
+		fleetData(request, response);
+
+		
 		
 	}
 
@@ -76,7 +74,7 @@ public class FleetInformation extends HttpServlet {
 		doGet(request, response);
 	}
 	
-	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		Fleet fleet = new Fleet();
 		for(int i = 0; i<1; i++){
 			Truck truck = new Truck();
