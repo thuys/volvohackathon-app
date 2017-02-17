@@ -2,16 +2,8 @@ package com.deloitte.classes.json;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-<<<<<<< HEAD
 import java.util.HashMap;
-=======
->>>>>>> a429414a255c2a399f738f31a79d9b0950006c79
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import com.deloitte.classes.datamodel.Fleet;
-import com.deloitte.classes.datamodel.FleetData;
 import com.deloitte.classes.datamodel.Truck;
 import com.deloitte.classes.soap.SoapDynafleet;
 import com.deloitte.soap.SoapReader;
@@ -96,30 +87,21 @@ public class FleetInformation extends HttpServlet {
 	
 	private void fleetData(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
-		GsonBuilder builder = new GsonBuilder();
+		/*GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
 
 		response.getWriter().println(gson.toJson(dataToVisualise.get(1)));
 		
-		/*Fleet fleet = new Fleet();
+		Fleet fleet = new Fleet();*/
 
-
+		Fleet fleet = new Fleet();
 		for(int i = 0; i<1; i++){
 			Truck truck = new Truck();
 			fleet.trucks.add(truck);
 		}
-//		ResultSet rs = connection.prepareCall("select \"TRUCK_ID\",\"TIMESTAMP\",\"LONG\",\"LAT\",\"SPEED\",\"DIRECTION\",\"BREAKING\",\"SHOCK\",\"LOCK_STATUS\",\"MOTOR\" from \"REAL_TIME_DATA\" LIMIT 0,20").executeQuery();
-//        //ArrayList<Row> list = new ArrayList<Row>();
-//        while (rs.next()) {
-//        	System.out.println(rs.getString(1));
-//        }
-//        rs.close();
 		GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         System.out.println(gson.toJson(fleet));
-<<<<<<< HEAD
-		response.getWriter().println(gson.toJson(fleet));*/
-
 		response.getWriter().println(gson.toJson(fleet));
 	}
 
