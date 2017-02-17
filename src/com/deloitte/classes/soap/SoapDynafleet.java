@@ -17,6 +17,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 
+import com.deloitte.classes.datamodel.ColourCode;
 import com.deloitte.classes.datamodel.Fleet;
 import com.deloitte.classes.datamodel.Truck;
 
@@ -131,6 +132,21 @@ public class SoapDynafleet extends TimerTask {
 			Fleet fleet = new Fleet();
 			fleet.trucks = truckList;
 			fleetMap.put(fleetMap.size(), fleet);
+			fleet.numberIfUnusualAreas = 4;
+			fleet.numberInAttentionZone = 12;
+			fleet.numberInCheckPointRange = 32;
+			fleet.numberOfHarshBrakes = 30;
+			fleet.numberOfHoursIdle = 12;
+			fleet.numberOfShocks = 321;
+			fleet.numberOfSpeedingBreaches = 3;
+			fleet.colourInCheckPointRange = ColourCode.GREEN;
+			fleet.colourofAttentionZone = ColourCode.RED;
+			fleet.colourOfHarshBrakes = ColourCode.RED;
+			fleet.colourOfHoursIdle = ColourCode.YELLOW;
+			fleet.colourOfLockBreaches = ColourCode.YELLOW;
+			fleet.colourOfShocks = ColourCode.RED;
+			fleet.colourOfSpeedingBreaches = ColourCode.RED;
+			fleet.colourOfUnsualAraes = ColourCode.GREEN;
 		} catch(InterruptedException e){
 			e.printStackTrace();
 		}

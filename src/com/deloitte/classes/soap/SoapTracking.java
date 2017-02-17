@@ -25,7 +25,7 @@ public class SoapTracking {
 	public static ArrayList<Truck> InterpreteBody(SOAPBody body)throws Exception{
 		ArrayList<Truck> truckList = new ArrayList<Truck>();
 		NodeList result = body.getElementsByTagName("result").item(0).getChildNodes();
-		for(int i = 0; i<result.getLength();i++){
+		for(int i = 0; i<50;i++){
 			
 			Truck t = new Truck();	
 			t.information = null;

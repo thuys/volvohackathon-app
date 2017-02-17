@@ -32,8 +32,8 @@ onAfterRendering: function() {
 	var controller = this;
 	
 	//this.showLogin();
-	//controller.showFleet();
-	controller.createTruckInformation();
+	controller.showFleet();
+	//controller.createTruckInformation();
 	
 	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 51.21728, lng: 4.41728},
@@ -377,7 +377,7 @@ addMarkers: function () {
 			    //sap.ui.getCore().byId("alertManagement").setEnabled(true);
 			    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
 			    
-			    //controller.createTruckInformation();
+			    controller.createTruckInformation();
 			    
 			}
 		 })(marker, i));
@@ -436,6 +436,11 @@ showFleet: function () {
 	
 	var controller = this;
 	
+	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
+		center: {lat: 51.21728, lng: 4.41728},
+		zoom: 8
+	});
+	
 	jQuery.ajax({
 		url: "/VolvoHackathon-App/java/fleet/1",
 		method: 'GET', 
@@ -463,7 +468,7 @@ showFleet: function () {
 					    sap.ui.getCore().byId("alertManagement").setEnabled(true);
 					    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
 					    
-					    //controller.createTruckInformation();
+					    controller.createTruckInformation();
 					    
 					}
 				 })(marker, i));
@@ -483,6 +488,7 @@ createTruckInformation: function () {
 	
 	var controller = this;
 	var alertPanel = sap.ui.getCore().byId("alertPanel");
+	alertPanel.destroyContent();
 	
 	console.log("check");
 	
@@ -491,37 +497,45 @@ createTruckInformation: function () {
 //		zoom: 6
 //	});
 	
-	sliderObj = {
+	var truckInfoArray = [
+		{
 			text: "Driver Score",
 			value: 80
+		},
+		{
+			text: "Asset Score",
+			value: 20
+		},
+		{
+			text: "Gep Score",
+			value: 30
+		}
+	];
+	
+	for (var i = 0; i < truckInfoArray.length; i++) {
+		
+		var sliderElement = new sap.m.VBox({
+			items: [
+				new sap.m.Text({
+					text: truckInfoArray[i].text + ": " + truckInfoArray[i].value + "%"
+				}).addStyleClass("dashboardTileText"),
+				new sap.m.Slider({
+					width: "250px",
+					value: truckInfoArray[i].value
+				})
+			]
+		}).addStyleClass("dashboardTileMargin");
+		
+		var alertHBox = new sap.m.HBox({});
+		var alertVBox = new sap.m.VBox({})
+		
+		alertHBox.addItem(alertVBox);
+		alertVBox.addItem(sliderElement);
+		alertPanel.addContent(alertHBox);
+		
 	}
-	
-	
-	var valueString = sliderObj.value.toString();
-	console.log(typeof valueString);
-	var sliderString = sliderObj.text + ": " + valueString + "%";
-	
-	var sliderElement = new sap.m.VBox({
-		items: [
-			new sap.m.Text({
-				text: sliderObj.text
-			}).addStyleClass("dashboardTileText"),
-			new sap.m.Slider({
-				width: "250px",
-				text: sliderString,
-				value: sliderObj.value
-			})
-		]
-	})
-	
-	var alertHBox = new sap.m.HBox({});
-	var alertVBox = new sap.m.VBox({})
-	
-	alertHBox.addItem(alertVBox);
-	alertVBox.addItem(sliderElement);
-	alertPanel.addContent(alertHBox);
-	
-},
+
+}
 
 
 });
