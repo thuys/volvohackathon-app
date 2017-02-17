@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import com.deloitte.classes.datamodel.Fleet;
 import com.deloitte.classes.datamodel.Truck;
 import com.deloitte.classes.soap.SoapDynafleet;
+import com.deloitte.classes.soap.SoapSingleton;
 import com.deloitte.soap.SoapReader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,8 +28,7 @@ public class FleetInformation extends HttpServlet {
 	private SoapReader sr;
 	private Connection connection;
 	
-	private HashMap<Integer, Fleet> dataToVisualise;
-	private SoapDynafleet dynafleet;
+	private SoapSingleton dynafleet;
 	
 
 	//PreparedStatement fleetRequestOverall;
@@ -44,10 +44,8 @@ public class FleetInformation extends HttpServlet {
 //		} catch (NamingException e) {
 //			throw new ServletException(e);
 //		}
-		dataToVisualise = new HashMap<Integer, Fleet>();
-		dynafleet = new SoapDynafleet(dataToVisualise);
-		Thread thread = new Thread(dynafleet);
-		thread.start();
+		dynafleet = SoapSingleton.getInstance();
+
 		
 		
 		//TODO: inlezen van de data 
@@ -71,9 +69,13 @@ public class FleetInformation extends HttpServlet {
 
 		System.out.println("aa");
 
-		fleetData(request, response);
-
-		
+		//fleetData(request, response);
+		GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        HashMap<Integer, Fleet> fleetinfo = dynafleet.getFleet();
+        Fleet fleet = fleetinfo.get(fleetinfo.size()-1);
+        System.out.println(gson.toJson(fleet));
+		response.getWriter().println(gson.toJson(fleet));
 		
 	}
 

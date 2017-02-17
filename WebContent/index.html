@@ -11,8 +11,7 @@
 		</script>
 		
 		<link rel="stylesheet" href="resources/css/styles.css">
-
-		<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4HIk7A2-6MHTo2Bq_RDtQ8r4EPAFPb1s"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4HIk7A2-6MHTo2Bq_RDtQ8r4EPAFPb1s"></script>
 		
 		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
 		
@@ -21,7 +20,6 @@
 				sap.ui.localResources("de-truckbackers");
 				var app = new sap.m.App({initialPage:"idApp"});
 				
-				//var login = sap.ui.view({id:"idLogin", viewName:"de-truckbackers.Login", type:sap.ui.core.mvc.ViewType.JS});
 				var page = sap.ui.view({id:"idApp", viewName:"de-truckbackers.App", type:sap.ui.core.mvc.ViewType.JS});
 				app.addPage(page);
 				

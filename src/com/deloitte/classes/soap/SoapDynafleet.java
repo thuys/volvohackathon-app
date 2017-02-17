@@ -2,6 +2,7 @@ package com.deloitte.classes.soap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.soap.MessageFactory;
@@ -19,7 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 import com.deloitte.classes.datamodel.Fleet;
 import com.deloitte.classes.datamodel.Truck;
 
-public class SoapDynafleet implements Runnable {
+public class SoapDynafleet extends TimerTask {
 	
 	private String login= "";
 	private Notification notification = new Notification();
@@ -95,13 +96,13 @@ public class SoapDynafleet implements Runnable {
     private String printSOAPResponse(String type, SOAPMessage soapResponse) throws Exception {
     	
     	//Display message
-    	TransformerFactory transformerFactory = TransformerFactory.newInstance();
+    	/*TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         Source sourceContent = soapResponse.getSOAPPart().getContent();
         System.out.println("\nResponse SOAP Message = ");
         StreamResult result = new StreamResult(System.out);
         transformer.transform(sourceContent, result);
-        System.out.println("");
+        System.out.println("");*/
         
         String returnMessage = "";
         
@@ -123,20 +124,13 @@ public class SoapDynafleet implements Runnable {
 	@Override
 	public void run() {
 		try{
-			while(true){
-				if(System.currentTimeMillis() - lastRun > 30000){
-					login = RunSoap("Login");
-					TimeUnit.SECONDS.sleep(2);				
-					RunSoap("Tracking");
-					lastRun = System.currentTimeMillis();
-					Fleet fleet = new Fleet();
-					fleet.trucks = truckList;
-					fleetMap.put(fleetMap.size(), fleet);
-				} else {
-					TimeUnit.SECONDS.sleep(15);
-				}
-				
-			}		
+			login = RunSoap("Login");
+			TimeUnit.SECONDS.sleep(2);				
+			RunSoap("Tracking");
+			lastRun = System.currentTimeMillis();
+			Fleet fleet = new Fleet();
+			fleet.trucks = truckList;
+			fleetMap.put(fleetMap.size(), fleet);
 		} catch(InterruptedException e){
 			e.printStackTrace();
 		}

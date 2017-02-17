@@ -1,9 +1,7 @@
 sap.ui.controller("de-truckbackers.App", {
 	
-	truckJSONModel: new sap.ui.model.json.JSONModel(),
-	fleetOverviewJSONModel: new sap.ui.model.json.JSONModel(),
-	overviewMap,
-	alertMap,
+	overviewMap: null,
+	alertMap: null,
 
 
 /**
@@ -31,22 +29,18 @@ onBeforeRendering: function() {
 */
 onAfterRendering: function() {
 	
-	//Set models
-	sap.ui.getCore().setModel(this.truckJSONModel, "truckJSONModel");
-	sap.ui.getCore().setModel(this.fleetOverviewJSONModel, "fleetOverviewJSONModel");
+	var controller = this;
 	
-	//Activate for login dummy
 	//this.showLogin();
-	//this.showFleet();
+	//controller.showFleet();
+	controller.createTruckInformation();
 	
-	this.overviewMap = new google.maps.Map(document.getElementById('overviewMap'), {
+	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 51.21728, lng: 4.41728},
 		zoom: 8
 	});
 	
-	this.addMarkers();
-	
-	this.createDashboard();
+	//this.addMarkers();
 },
 
 /**
@@ -129,7 +123,7 @@ showLogin: function () {
 },
 
 //#FLEETOVERVIEW
-createDashboard: function () {
+createDashboard: function (data) {
 	
 	var firstRow = new sap.m.HBox({
 		items: [
@@ -146,7 +140,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberInCheckPointRange,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "Within Checkpoint Range",
@@ -171,7 +165,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberOfSpeedingBreaches,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "Speeding Breaches",
@@ -196,7 +190,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberOfHoursIdle,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "Idling",
@@ -221,7 +215,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberOfShocks,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "Shocks",
@@ -251,7 +245,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberInAttentionZone,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "In Attention Zones",
@@ -276,7 +270,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberOfLockBreaches,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "Lock Breaches",
@@ -301,7 +295,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberIfUnusualAreas,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "Unusual areas",
@@ -326,7 +320,7 @@ createDashboard: function () {
 								justifyContent: "Center",
 								items: [
 									new sap.m.Text({
-										text: "Value",
+										text: data.numberOfHarshBrakes,
 									}).addStyleClass("dashboardTileValue"),
 									new sap.m.Text({
 										text: "Harsh Brakes",
@@ -370,19 +364,20 @@ addMarkers: function () {
 	for (i = 0; i < locations.length; i++) { 
 		 marker = new google.maps.Marker({
 			 position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-		     map: this.overviewMap,
+		     map: controller.overviewMap,
 		     icon: 'resources/images/truck_icon.png'
 		 });
 		 
 		 google.maps.event.addListener(marker, 'click', (function(marker, i) {
 			return function() {
+				
 				infowindow.setContent(locations[i][0]);
-			    infowindow.open(map, marker);
+			    infowindow.open(controller.overviewMap, marker);
 			    
-			    sap.ui.getCore().byId("alertManagement").setEnabled(true);
+			    //sap.ui.getCore().byId("alertManagement").setEnabled(true);
 			    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
 			    
-			    controller.createTruckInformation();
+			    //controller.createTruckInformation();
 			    
 			}
 		 })(marker, i));
@@ -427,7 +422,6 @@ createTruck: function () {
 		success: function (response) {
 			
 			console.log(response);
-			//controller.truckJSONModel.setData();
 			
 		},
 		
@@ -440,14 +434,41 @@ createTruck: function () {
 
 showFleet: function () {
 	
+	var controller = this;
+	
 	jQuery.ajax({
-		url: "/VolvoHackathonApp/java/fleet",
+		url: "/VolvoHackathon-App/java/fleet/1",
 		method: 'GET', 
 		dataType: 'json',
 		success: function (response) {
 			
 			console.log(response);
-			//controller.truckJSONModel.setData();
+			controller.createDashboard(response);
+			
+			var trucks = response.trucks;
+			
+			for(var i = 0; i < trucks.length; i++) {
+				
+				marker = new google.maps.Marker({
+					 position: new google.maps.LatLng(trucks[i].position.lat, trucks[i].position.lng),
+				     map: controller.overviewMap,
+				     icon: 'resources/images/truck_icon.png'
+				 });
+				 
+				 google.maps.event.addListener(marker, 'click', (function(marker, i) {
+					return function() {
+						
+						console.log(trucks[i].id);
+					    
+					    sap.ui.getCore().byId("alertManagement").setEnabled(true);
+					    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
+					    
+					    //controller.createTruckInformation();
+					    
+					}
+				 })(marker, i));
+				
+			}
 			
 		},
 		
@@ -458,16 +479,49 @@ showFleet: function () {
 	
 },
 
-createTruckInformation: function (truck) {
+createTruckInformation: function () {
 	
 	var controller = this;
 	var alertPanel = sap.ui.getCore().byId("alertPanel");
 	
+	console.log("check");
+	
+//	var truckMap = new google.maps.Map(document.getElementById('alertMap'), {
+//		center: {lat: truck.lat, lng: truck.lng},
+//		zoom: 6
+//	});
+	
+	sliderObj = {
+			text: "Driver Score",
+			value: 80
+	}
 	
 	
+	var valueString = sliderObj.value.toString();
+	console.log(typeof valueString);
+	var sliderString = sliderObj.text + ": " + valueString + "%";
 	
-}
-
+	var sliderElement = new sap.m.VBox({
+		items: [
+			new sap.m.Text({
+				text: sliderObj.text
+			}).addStyleClass("dashboardTileText"),
+			new sap.m.Slider({
+				width: "250px",
+				text: sliderString,
+				value: sliderObj.value
+			})
+		]
+	})
+	
+	var alertHBox = new sap.m.HBox({});
+	var alertVBox = new sap.m.VBox({})
+	
+	alertHBox.addItem(alertVBox);
+	alertVBox.addItem(sliderElement);
+	alertPanel.addContent(alertHBox);
+	
+},
 
 
 });
