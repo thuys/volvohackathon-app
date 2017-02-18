@@ -66,7 +66,7 @@ public class AlertManagement extends HttpServlet {
 	
 	private void setTruckData(Truck truck, String nr) {
 		
-		if(nr == "1") {
+		if(Integer.parseInt(nr) % 3 == 1) {
 			
 // route https://www.google.be/maps/dir/38.7097735,-9.00675/40.5273495,-7.2239721/42.9204735,-2.6641959/43.5400947,1.3959146/43.4704927,5.6673244/44.4301904,8.8469059/45.6235089,12.441684/47.7968704,13.0776452/@27.581962,-25.3644474,3z/data=!4m2!4m1!3e0			
 			truck.id = "217394";
@@ -90,7 +90,7 @@ public class AlertManagement extends HttpServlet {
 			truck.information.geoScore = 3;
 			truck.information.propabilityOfDamage = 0.02;
 			
-		} else if (nr == "2") {
+		} else if (Integer.parseInt(nr) % 3 == 2) {
 			
 // route https://www.google.be/maps/dir/51.2776014,4.3610318/49.2855436,3.9802494/47.3523456,5.1625687/44.9780056,4.8839635/43.3104101,5.3656424/@43.3115612,5.3644312,15.33z/data=!4m2!4m1!3e0
 			truck.id = "196045";
