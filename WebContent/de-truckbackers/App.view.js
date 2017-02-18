@@ -13,7 +13,7 @@ sap.ui.jsview("de-truckbackers.App", {
 	* @memberOf de-truckbackers.App
 	*/ 
 	
-	createContent : function(oController) {
+	createContent : function(controller) {
  		return new sap.m.Page({
  			showHeader: false,
 			content: [
@@ -30,6 +30,7 @@ sap.ui.jsview("de-truckbackers.App", {
 						}),
 						new sap.m.IconTabBar({
 							id: "appTabBar",
+							select: controller.createHeatMap,
 							items: [
 								new sap.m.IconTabFilter({
 									text: "Fleet Overview",
@@ -81,6 +82,7 @@ sap.ui.jsview("de-truckbackers.App", {
 								}),
 								new sap.m.IconTabFilter({
 									text: "Reports",
+									key: "reports",
 									content: [
 										new sap.m.VBox({
 											width:"100%",
@@ -88,9 +90,10 @@ sap.ui.jsview("de-truckbackers.App", {
 												new sap.m.Panel({
 													width: "100%",
 													height: "400px",
+													expanded: true,
 													content: [
 														new sap.ui.core.HTML({
-															content: '<div id="reportMap"></div>'
+															content: '<div id="heatMap"></div>'
 														})
 													]
 												})

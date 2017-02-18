@@ -34,7 +34,6 @@ onAfterRendering: function() {
 	
 	//this.showLogin();
 	controller.showFleet();
-	controller.createHeatMap();
 	
 	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 51.21728, lng: 4.41728},
@@ -645,40 +644,55 @@ createRoute: function (checkpoints) {
 createHeatMap: function () {
 	
 	var controller = this;
+	var bar = sap.ui.getCore().byId("appTabBar");
 	
-//	jQuery.ajax({
-//		url: "/VolvoHackathon-App/java/heat ",
-//		method: 'GET', 
-//		dataType: 'json',
-//		success: function (response) {
-//			
-//			controller.heatmap = new google.maps.Map(document.getElementById('reportMap'), {
-//				center: {lat: 51.21728, lng: 4.41728},
-//				zoom: 8
-//			});
-//			
-//			var trucks = response.trucks;
-//			
-//			for(var i = 0; i < trucks.length; i++) {
-//				
-//				var circle = new google.maps.Circle({
-//				      strokeColor: colour,
-//				      strokeOpacity: 0.8,
-//				      strokeWeight: 2,
-//				      fillColor: colour,
-//				      fillOpacity: 0.35,
-//				      map: controller.alertMap,
-//				      center: checkpoint.position,
-//				      radius: 20000
-//				});
-//				
-//			}
-//			
-//		},
-//		error: function (error) {
-//			console.log(error);
-//		}
-//	});
+	if (bar.getSelectedKey() == "reports") {
+		
+		jQuery.ajax({
+			url: "/VolvoHackathon-App/java/heat ",
+			method: 'GET', 
+			dataType: 'json',
+			success: function (response) {
+				
+				console.log(response);
+				
+				var heatpoints = response.heatPoints;
+				
+				if (controller.heatmap == null) {
+					controller.heatmap = new google.maps.Map(document.getElementById('heatMap'), {
+						center: {lat: 51.21728, lng: 4.41728},
+						zoom: 8
+					});
+				}
+				
+				for(var i= 0; i < heatpoints.length; i++) {
+					
+					var heatpoint = heatpoints[i];
+					
+					console.log(heatpoint);
+
+					var circle = new google.maps.Circle({
+					      strokeColor: "#" + heatpoint.color,
+					      strokeOpacity: 0.8,
+					      strokeWeight: 2,
+					      fillColor: "#" + heatpoint.color,
+					      fillOpacity: 0.35,
+					      map: controller.heatmap,
+					      center: heatpoint.position,
+					      radius: 20000
+					});
+					
+				}
+				
+			},
+			error: function (error) {
+				console.log(error);
+			}
+		});	
+	}
+},
+
+createReportTables: function () {
 	
 }
 
