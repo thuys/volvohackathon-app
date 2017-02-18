@@ -52,9 +52,9 @@ public class SoapTracking {
 					NodeList positionNodes = setting.getChildNodes();
 					for(int k = 0; k<positionNodes.getLength(); k++){
 						if(positionNodes.item(k).getLocalName().equals("longitude")){
-							t.position.lng = positionNodes.item(k).getChildNodes().item(0).getTextContent();
+							t.position.lng = Double.parseDouble(positionNodes.item(k).getChildNodes().item(0).getTextContent());
 						} else if(positionNodes.item(k).getLocalName().equals("latitude")){
-							t.position.lat = positionNodes.item(k).getChildNodes().item(0).getTextContent();
+							t.position.lat = Double.parseDouble(positionNodes.item(k).getChildNodes().item(0).getTextContent());
 						}
 						//System.out.println(positionNodes.item(k).getLocalName() + " - " + positionNodes.item(k).getChildNodes().item(0).getTextContent());
 					}
