@@ -308,7 +308,7 @@ createDashboard: function (data) {
 				]
 			}).addStyleClass("dashboardTileMargin"),
 			new sap.m.Panel({
-				id: "HarshBrakes",
+				id: "harshBrakes",
 				width: "280px",
 				height: "180px",
 				content: [
