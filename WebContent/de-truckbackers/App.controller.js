@@ -607,6 +607,36 @@ displayCheckpoints: function (truck) {
 		
 	}
 	
+	controller.createRoute(checkpoints);
+	
+},
+
+createRoute: function (checkpoints) {
+	
+	var controller = this;
+	
+	var start = checkpoints[0].position;
+	var end = checkpoints[checkpoints.length-1].position;
+	
+	var controller = this;
+	var request = {
+			origin: start,
+			destination: end,
+			travelMode: google.maps.TravelMode.DRIVING
+	};
+	
+	var directionsDisplay = new google.maps.DirectionsRenderer();
+	directionsDisplay.setMap(controller.alertMap);
+	var directionsService = new google.maps.DirectionsService();
+	
+	directionsService.route(request, function(result, status) {
+	    if (status == google.maps.DirectionsStatus.OK) {
+	    	directionsDisplay.setDirections(result);
+	    } else {
+	      alert("couldn't get directions:" + status);
+	    }
+	});
+	
 },
 
 createHeatMap: function () {
@@ -614,7 +644,7 @@ createHeatMap: function () {
 	var controller = this;
 	
 //	jQuery.ajax({
-//		url: "/VolvoHackathon-App/java/fleet/1",
+//		url: "/VolvoHackathon-App/java/heat ",
 //		method: 'GET', 
 //		dataType: 'json',
 //		success: function (response) {
