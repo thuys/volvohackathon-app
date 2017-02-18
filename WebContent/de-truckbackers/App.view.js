@@ -30,7 +30,9 @@ sap.ui.jsview("de-truckbackers.App", {
 						}),
 						new sap.m.IconTabBar({
 							id: "appTabBar",
-							select: controller.createHeatMap,
+							select: function () {
+								controller.createHeatMap();
+							},
 							items: [
 								new sap.m.IconTabFilter({
 									text: "Fleet Overview",
@@ -96,6 +98,18 @@ sap.ui.jsview("de-truckbackers.App", {
 															content: '<div id="heatMap"></div>'
 														})
 													]
+												}),
+												new sap.m.Panel({
+													id: "alertReportPanel",
+													headerText: "Alert Report",
+													expandable: true,
+													expanded: false
+												}),
+												new sap.m.Panel({
+													id: "driverReportPanel",
+													headerText: "Driver Report",
+													expandable: true,
+													expanded: false
 												})
 											]
 										})

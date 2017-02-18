@@ -700,9 +700,88 @@ createHeatMap: function () {
 			}
 		});	
 	}
+	
+	controller.createReportTables();
 },
 
 createReportTables: function () {
+	
+	var controller = this;
+	var alertReportPanel = sap.ui.getCore().byId("alertReportPanel");
+	alertReportPanel.destroyContent();
+	
+	var alertJSONModel = new sap.ui.model.json.JSONModel();
+	sap.ui.getCore().setModel(this.alertJSONModel, "alertJSONModel");
+	
+	var alertTable = new sap.m.Table({
+		columns: [
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Alert Area"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Alert Outcome"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Alert Type"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Date"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Time"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Truck ID"})
+			})
+		]
+	});
+	
+	var alertTableListItem = new sap.m.ColumnListItem({
+		id: "alertTableListItem",
+		type: "Active"
+	});
+	
+	var listitem = new sap.m.Text({
+		text: "{alertJSONModel>alertArea}"
+	});
+	alertTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{alertJSONModel>alertOutcome}"
+	});
+	alertTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{alertJSONModel>alertType}"
+	});
+	alertTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{alertJSONModel>date}"
+	});
+	alertTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{alertJSONModel>time}"
+	});
+	alertTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{alertJSONModel>truckId}"
+	});
+	alertTableListItem.addCell(listitem);
+	
+	alertJSONModel.setData(alertData);
+	alertTable.bindItems("alertJSONModel>/", alertTableListItem);
+	alertTable.setModel(alertJSONModel, "alertJSONModel");	
+	
+	alertReportPanel.addContent(alertTable);
 	
 }
 
