@@ -1,5 +1,6 @@
 package com.deloitte.classes.soap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.xml.soap.SOAPBody;
@@ -22,14 +23,13 @@ public class SoapTracking {
 		        	soapBodyElem3.addTextNode(login);
 	}
 	
-	public static ArrayList<Truck> InterpreteBody(SOAPBody body)throws Exception{
-		ArrayList<Truck> truckList = new ArrayList<Truck>();
+	public static HashMap<String,Truck> InterpreteBody(SOAPBody body, HashMap<String,Truck> truckMap)throws Exception{
+
 		NodeList result = body.getElementsByTagName("result").item(0).getChildNodes();
-		for(int i = 0; i<50;i++){
+		for(int i = 0; i<result.getLength();i++){
 			
 			Truck t = new Truck();	
 			t.information = null;
-			t.status = null; //TODO
 			
 			Node truckArray = result.item(i);
 			NodeList truckArrayNodes = truckArray.getChildNodes();
@@ -68,9 +68,9 @@ public class SoapTracking {
 					break;
 				}
 			}
-			truckList.add(t);
+			truckMap.put(t.id, t);
 		}
-		return truckList;
+		return truckMap;
 	}
 
 }
