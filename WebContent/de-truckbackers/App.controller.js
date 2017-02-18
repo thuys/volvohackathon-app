@@ -425,8 +425,6 @@ showFleet: function () {
 
 createTruckInformation: function (position) {
 	
-	console.log(position);
-	
 	var controller = this;
 	var alertPanel = sap.ui.getCore().byId("alertPanel");
 	alertPanel.destroyContent();
@@ -511,9 +509,7 @@ createTruckInformation: function (position) {
 								]
 							})
 						]
-					}).addStyleClass("dashboardTileMargin").attachEvent("click", function () {
-						console.log("click");
-					}),
+					}).addStyleClass("dashboardTileMargin"),
 					new sap.m.Panel({
 						width: "275px",
 						height: "220px",
@@ -782,6 +778,111 @@ createReportTables: function () {
 	alertTable.setModel(alertJSONModel, "alertJSONModel");	
 	
 	alertReportPanel.addContent(alertTable);
+	
+	//Driver table
+	var driverReportPanel = sap.ui.getCore().byId("driverReportPanel");
+	driverReportPanel.destroyContent();
+	
+	var driverJSONModel = new sap.ui.model.json.JSONModel();
+	sap.ui.getCore().setModel(this.driverJSONModel, "driverJSONModel");
+	
+	var driverTable = new sap.m.Table({
+		columns: [
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "#Fatigue breaches"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "#Speed breaches"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Driver ID"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Driving time"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Idling time"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "KM driven (2017)"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "KM driven (CW)"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Total breaches (2017)"})
+			}),
+			new sap.m.Column ({
+				width: "100px",
+				header: new sap.m.Label({text: "Total breaches (CW)"})
+			})
+			
+		]
+	});
+	
+	var driverTableListItem = new sap.m.ColumnListItem({
+		id: "driverTableListItem",
+		type: "Active"
+	});
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>Fatiguebreaches}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>Speedbreaches}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>DriverID}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>Drivingtime}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>Idlingtime}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>KMdrivenYear}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>KMdrivenWeek}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>TotalbreachesYear}"
+	});
+	driverTableListItem.addCell(listitem);
+	
+	var listitem = new sap.m.Text({
+		text: "{driverJSONModel>TotalbreachesWeek}"
+	});
+	driverTableListItem.addCell(listitem);	
+	
+	driverJSONModel.setData(driverData);
+	driverTable.bindItems("driverJSONModel>/", driverTableListItem);
+	driverTable.setModel(driverJSONModel, "driverJSONModel");	
+	
+	driverReportPanel.addContent(driverTable);
 	
 }
 
