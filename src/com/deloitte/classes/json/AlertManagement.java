@@ -57,7 +57,7 @@ public class AlertManagement extends HttpServlet {
 	private void truckData(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Truck truck = new Truck();
 		
-		setTruckData(truck, request.getPathInfo());
+		setTruckData(truck, request.getPathInfo().substring(1));
 
 		GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
@@ -67,6 +67,30 @@ public class AlertManagement extends HttpServlet {
 	private void setTruckData(Truck truck, String nr) {
 		
 		if(Integer.parseInt(nr) % 3 == 1) {
+			
+// route https://www.google.be/maps/dir/38.7097735,-9.00675/40.5273495,-7.2239721/42.9204735,-2.6641959/43.5400947,1.3959146/45.8570317,1.2827131/48.79741,2.4441275/''/''/51.9625026,7.546241/53.5844734,10.0188848/@47.3242924,-3.4517978,5.46z/data=!4m18!4m17!1m0!1m0!1m0!1m0!1m0!1m0!1m3!2m2!1d4.3240643!2d50.9000354!1m3!2m2!1d5.4905033!2d51.404935!1m0!1m0!3e0
+						truck.id = "217394";
+						truck.status = ColourCode.RED;
+						
+						truck.position.lat = "43.357202";
+						truck.position.lng = "-0.455891";
+						
+						truck.information.checkPoints.add(new CheckPoint(new Position("38.7097735", "-9.00675"), true));
+						truck.information.checkPoints.add(new CheckPoint(new Position("40.5273495", "-7.2239721"), true));
+						truck.information.checkPoints.add(new CheckPoint(new Position("42.9204735", "-2.6641959"), true));
+						truck.information.checkPoints.add(new CheckPoint(new Position("43.5400947", "1.3959146"), false));
+						truck.information.checkPoints.add(new CheckPoint(new Position("43.4704927", "5.6673244"), false));
+						truck.information.checkPoints.add(new CheckPoint(new Position("44.4301904", "8.8469059"), false));
+						truck.information.checkPoints.add(new CheckPoint(new Position("45.6235089", "12.441684"), false));
+						truck.information.checkPoints.add(new CheckPoint(new Position("47.7968704", "13.0776452"), false));
+						
+						truck.information.isInCheckPoint = false;
+						truck.information.driverScore = 81;
+						truck.information.assetScore = 23;
+						truck.information.geoScore = 3;
+						truck.information.propabilityOfDamage = 0.02;
+						
+/*		if(Integer.parseInt(nr) % 3 == 1) {
 			
 // route https://www.google.be/maps/dir/38.7097735,-9.00675/40.5273495,-7.2239721/42.9204735,-2.6641959/43.5400947,1.3959146/43.4704927,5.6673244/44.4301904,8.8469059/45.6235089,12.441684/47.7968704,13.0776452/@27.581962,-25.3644474,3z/data=!4m2!4m1!3e0			
 			truck.id = "217394";
@@ -88,7 +112,7 @@ public class AlertManagement extends HttpServlet {
 			truck.information.driverScore = 81;
 			truck.information.assetScore = 23;
 			truck.information.geoScore = 3;
-			truck.information.propabilityOfDamage = 0.02;
+			truck.information.propabilityOfDamage = 0.02; */
 			
 		} else if (Integer.parseInt(nr) % 3 == 2) {
 			
