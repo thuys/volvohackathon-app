@@ -619,11 +619,21 @@ createRoute: function (checkpoints) {
 	
 	var start = checkpoints[0].position;
 	var end = checkpoints[checkpoints.length-1].position;
+	var routePoints = [];
+		
+	for(var i = 1; i < checkpoints.length-2; i++) {
+		var p = {
+			location:checkpoints[i].position,
+			stopover:false
+		};
+		routePoints.push(p);
+	}  
 	
 	var controller = this;
 	var request = {
 			origin: start,
 			destination: end,
+			waypoints: routePoints,
 			travelMode: google.maps.TravelMode.DRIVING
 	};
 	
