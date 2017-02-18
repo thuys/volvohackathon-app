@@ -470,7 +470,6 @@ showFleet: function () {
 						
 					    sap.ui.getCore().byId("alertManagement").setEnabled(true);
 					    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
-					    
 					    controller.createTruckInformation(position);
 					    
 					}
@@ -499,8 +498,7 @@ createTruckInformation: function (position) {
 		method: 'GET', 
 		dataType: 'json',
 		success: function (response) {
-			
-			console.log(response);
+	
 			var truck = response;
 			
 			var truckMap = new google.maps.Map(document.getElementById('alertMap'), {
@@ -553,22 +551,25 @@ createTruckInformation: function (position) {
 		
 	});
 	
-	var alertIssueHBox = new sap.m.HBox({
+	var alertProbHBox = new sap.m.HBox({
 		justifyContent: "Center",
 		items: [
 			new sap.m.Text({
-				text: ""
-			})
+				text: truck.propabilityOfDamage + "%"
+			}).addStyleClass("alertActions")
 		]
 	});
 	
-	
-	
-	
-	
-	
-	
-	
+	var alertIssueHBox = new sap.m.HBox({
+		items: [
+			new sap.m.VBox({
+				justifyContent: "Center",
+				items: [
+				]
+			})
+
+		]
+	})
 
 }
 
