@@ -339,7 +339,7 @@ createDashboard: function (data) {
 			firstRow,
 			secondRow
 		]
-	});
+	}).addStyleClass("tileStyleSingle");
 	
 	sap.ui.getCore().byId("dashboardPanel").addContent(tileBox);
 	
@@ -490,7 +490,7 @@ createTruckInformation: function (position) {
 				items: [
 					new sap.m.Panel({
 						id: "callDriverPanel",
-						width: "280px",
+						width: "275px",
 						height: "220px",
 						content: [
 							new sap.m.HBox({
@@ -512,7 +512,7 @@ createTruckInformation: function (position) {
 						console.log("click");
 					}),
 					new sap.m.Panel({
-						width: "280px",
+						width: "275px",
 						height: "220px",
 						content: [
 							new sap.m.HBox({
@@ -532,7 +532,7 @@ createTruckInformation: function (position) {
 						]
 					}).addStyleClass("dashboardTileMargin"),
 					new sap.m.Panel({
-						width: "280px",
+						width: "275px",
 						height: "220px",
 						content: [
 							new sap.m.HBox({
@@ -607,6 +607,51 @@ displayCheckpoints: function (truck) {
 		console.log(controller.alertMap);
 		
 	}
+	
+},
+
+createHeatMaps: fuction () {
+	
+	jQuery.ajax({
+		url: "/VolvoHackathon-App/java/fleet/1",
+		method: 'GET', 
+		dataType: 'json',
+		success: function (response) {
+			
+			controller.createDashboard(response);
+			
+			var trucks = response.trucks;
+			
+			for(var i = 0; i < trucks.length; i++) {
+				
+				marker = new google.maps.Marker({
+					 position: new google.maps.LatLng(trucks[i].position.lat, trucks[i].position.lng),
+				     map: controller.overviewMap,
+				     icon: trucks[i].status == 'GREEN' ? 'resources/images/truck_icon_green.png' : (trucks[i].status == 'RED' ? 'resources/images/truck_icon_red.png':'resources/images/truck_icon_orange.png')
+				 });
+				 
+				 google.maps.event.addListener(marker, 'click', (function(marker, i) {
+					return function() {
+						
+						var position = {
+								lat: trucks[i].position.lat,
+								lng: trucks[i].position.lng
+						};
+						
+					    sap.ui.getCore().byId("alertManagement").setEnabled(true);
+					    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
+					    controller.createTruckInformation(position);
+					    
+					}
+				 })(marker, i));
+				
+			}
+			
+		},
+		error: function (error) {
+			console.log(error);
+		}
+	});
 	
 }
 
