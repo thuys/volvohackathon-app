@@ -2,6 +2,7 @@ sap.ui.controller("de-truckbackers.App", {
 	
 	overviewMap: null,
 	alertMap: null,
+	heatmap: null,
 
 
 /**
@@ -33,7 +34,7 @@ onAfterRendering: function() {
 	
 	//this.showLogin();
 	controller.showFleet();
-	//controller.createTruckInformation();
+	controller.createHeatMap();
 	
 	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
 		center: {lat: 51.21728, lng: 4.41728},
@@ -604,54 +605,47 @@ displayCheckpoints: function (truck) {
 		      radius: 20000
 		});
 		
-		console.log(controller.alertMap);
-		
 	}
 	
 },
 
-createHeatMaps: function () {
+createHeatMap: function () {
 	
-	jQuery.ajax({
-		url: "/VolvoHackathon-App/java/fleet/1",
-		method: 'GET', 
-		dataType: 'json',
-		success: function (response) {
-			
-			controller.createDashboard(response);
-			
-			var trucks = response.trucks;
-			
-			for(var i = 0; i < trucks.length; i++) {
-				
-				marker = new google.maps.Marker({
-					 position: new google.maps.LatLng(trucks[i].position.lat, trucks[i].position.lng),
-				     map: controller.overviewMap,
-				     icon: trucks[i].status == 'GREEN' ? 'resources/images/truck_icon_green.png' : (trucks[i].status == 'RED' ? 'resources/images/truck_icon_red.png':'resources/images/truck_icon_orange.png')
-				 });
-				 
-				 google.maps.event.addListener(marker, 'click', (function(marker, i) {
-					return function() {
-						
-						var position = {
-								lat: trucks[i].position.lat,
-								lng: trucks[i].position.lng
-						};
-						
-					    sap.ui.getCore().byId("alertManagement").setEnabled(true);
-					    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
-					    controller.createTruckInformation(position);
-					    
-					}
-				 })(marker, i));
-				
-			}
-			
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	});
+	var controller = this;
+	
+//	jQuery.ajax({
+//		url: "/VolvoHackathon-App/java/fleet/1",
+//		method: 'GET', 
+//		dataType: 'json',
+//		success: function (response) {
+//			
+//			controller.heatmap = new google.maps.Map(document.getElementById('reportMap'), {
+//				center: {lat: 51.21728, lng: 4.41728},
+//				zoom: 8
+//			});
+//			
+//			var trucks = response.trucks;
+//			
+//			for(var i = 0; i < trucks.length; i++) {
+//				
+//				var circle = new google.maps.Circle({
+//				      strokeColor: colour,
+//				      strokeOpacity: 0.8,
+//				      strokeWeight: 2,
+//				      fillColor: colour,
+//				      fillOpacity: 0.35,
+//				      map: controller.alertMap,
+//				      center: checkpoint.position,
+//				      radius: 20000
+//				});
+//				
+//			}
+//			
+//		},
+//		error: function (error) {
+//			console.log(error);
+//		}
+//	});
 	
 }
 
