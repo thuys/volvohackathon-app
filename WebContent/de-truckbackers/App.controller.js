@@ -411,27 +411,6 @@ positionGeofence: function (coordinates) {
 	
 },
 
-createTruck: function () {
-	
-	controller = this;
-	
-	jQuery.ajax({
-		url: url,
-		method: 'GET', 
-		dataType: 'json',
-		success: function (response) {
-			
-			console.log(response);
-			
-		},
-		
-		error: function (error) {
-			console.log(error);
-		}
-	});
-	
-},
-
 showFleet: function () {
 	
 	var controller = this;
@@ -447,7 +426,6 @@ showFleet: function () {
 		dataType: 'json',
 		success: function (response) {
 			
-			console.log(response);
 			controller.createDashboard(response);
 			
 			var trucks = response.trucks;
@@ -493,6 +471,11 @@ createTruckInformation: function (position) {
 	var alertPanel = sap.ui.getCore().byId("alertPanel");
 	alertPanel.destroyContent();
 	
+	controller.alertMap = new google.maps.Map(document.getElementById('alertMap'), {
+		center: {lat: 51.21728, lng: 4.41728},
+		zoom: 6
+	});
+	
 	jQuery.ajax({
 		url: "/VolvoHackathon-App/java/alert/1",
 		method: 'GET', 
@@ -500,74 +483,55 @@ createTruckInformation: function (position) {
 		success: function (response) {
 	
 			var truck = response;
-			
-			var truckMap = new google.maps.Map(document.getElementById('alertMap'), {
-				center: {lat: position.lat, lng: position.lng},
-				zoom: 6
-			});
+			console.log(response);
 
 			marker = new google.maps.Marker({
 				 position: new google.maps.LatLng(position.lat, position.lng),
-			     map: controller.overviewMap,
+			     map: controller.alertMap,
 			     icon: 'resources/images/truck_icon.png'
 			 });
-
-		},
-		error: function (error) {
-			console.log(error);
-		}
-	});
-	
-	var truckInfoArray = [];
-	truckInfoArray.push({text: "Driver Score:", value: truck.information.driverScore});
-	truckInfoArray.push({text: "Asset Score:", value: truck.information.assetScore});
-	truckInfoArray.push({text: "Geo Score:", value: truck.information.geoScore});
-	
-	for (var i = 0; i < truckInfoArray.length; i++) {
-		
-		var sliderElement = new sap.m.VBox({
-			items: [
-				new sap.m.Text({
-					text: truckInfoArray[i].text + truckInfoArray[i].value + "%"
-				}).addStyleClass("dashboardTileText"),
-				new sap.m.Slider({
-					width: "250px",
-					value: truckInfoArray[i].value
-				})
-			]
-		}).addStyleClass("alertSlider");
-		
-		var alertHBox = new sap.m.HBox({});
-		var alertVBox = new sap.m.VBox({})
-		
-		alertHBox.addItem(alertVBox);
-		alertVBox.addItem(sliderElement);
-		alertPanel.addContent(alertHBox);
-		
-	}
-	
-	var alertIssueVBox = new sap.m.VBox({});
-	var probability = new sap.m.HBox({
-		
-	});
-	
-	var alertProbHBox = new sap.m.HBox({
-		justifyContent: "Center",
-		items: [
-			new sap.m.Text({
-				text: truck.propabilityOfDamage + "%"
-			}).addStyleClass("alertActions")
-		]
-	});
-	
-	var alertIssueHBox = new sap.m.HBox({
-		items: [
-			new sap.m.VBox({
+			
+			var truckInfoArray = [];
+			truckInfoArray.push({text: "Driver Score:", value: truck.information.driverScore});
+			truckInfoArray.push({text: "Asset Score:", value: truck.information.assetScore});
+			truckInfoArray.push({text: "Geo Score:", value: truck.information.geoScore});
+			
+			var alertHBox = new sap.m.HBox({});
+			var alertStatsVBox = new sap.m.VBox({}).addStyleClass("tileStyle");
+			
+			for (var i = 0; i < truckInfoArray.length; i++) {
+				
+				var sliderElement = new sap.m.VBox({
+					items: [
+						new sap.m.Text({
+							text: truckInfoArray[i].text + truckInfoArray[i].value + "%"
+						}).addStyleClass("dashboardTileText"),
+						new sap.m.Slider({
+							width: "250px",
+							value: truckInfoArray[i].value
+						})
+					]
+				}).addStyleClass("alertSlider");
+				
+				alertStatsVBox.addItem(sliderElement);
+			}
+			
+			alertHBox.addItem(alertStatsVBox);
+			
+			var alertProbHBox = new sap.m.HBox({
 				justifyContent: "Center",
+				items: [
+					new sap.m.Text({
+						text: "Probability of Damage: " + truck.information.propabilityOfDamage + "%"
+					}).addStyleClass("alertActions")
+				]
+			});
+			
+			var alertIssueClickHBox = new sap.m.HBox({
 				items: [
 					new sap.m.Panel({
 						width: "280px",
-						height: "180px",
+						height: "220px",
 						content: [
 							new sap.m.HBox({
 								justifyContent: "Center",
@@ -587,7 +551,7 @@ createTruckInformation: function (position) {
 					}).addStyleClass("dashboardTileMargin"),
 					new sap.m.Panel({
 						width: "280px",
-						height: "180px",
+						height: "220px",
 						content: [
 							new sap.m.HBox({
 								justifyContent: "Center",
@@ -607,7 +571,7 @@ createTruckInformation: function (position) {
 					}).addStyleClass("dashboardTileMargin"),
 					new sap.m.Panel({
 						width: "280px",
-						height: "180px",
+						height: "220px",
 						content: [
 							new sap.m.HBox({
 								justifyContent: "Center",
@@ -626,9 +590,20 @@ createTruckInformation: function (position) {
 						]
 					}).addStyleClass("dashboardTileMargin")
 				]
-			})
-		]
-	})
+			});
+			
+			var alertIssueVBox = new sap.m.VBox({}).addStyleClass("tileStyle");
+			alertIssueVBox.addItem(alertProbHBox);
+			alertIssueVBox.addItem(alertIssueClickHBox);
+			alertHBox.addItem(alertIssueVBox);
+			
+			alertPanel.addContent(alertHBox);
+
+		},
+		error: function (error) {
+			console.log(error);
+		}
+	});
 
 }
 
