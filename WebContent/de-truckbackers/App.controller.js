@@ -454,6 +454,11 @@ showFleet: function () {
 			
 			for(var i = 0; i < trucks.length; i++) {
 				
+				var position = {
+						lat: trucks[i].position.lat,
+						lng: trucks[i].position.lng
+				};
+				
 				marker = new google.maps.Marker({
 					 position: new google.maps.LatLng(trucks[i].position.lat, trucks[i].position.lng),
 				     map: controller.overviewMap,
@@ -463,12 +468,9 @@ showFleet: function () {
 				 google.maps.event.addListener(marker, 'click', (function(marker, i) {
 					return function() {
 						
-						console.log(trucks[i].id);
-					    
 					    sap.ui.getCore().byId("alertManagement").setEnabled(true);
 					    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
-					    
-					    controller.createTruckInformation();
+					    controller.createTruckInformation(position);
 					    
 					}
 				 })(marker, i));
@@ -476,7 +478,6 @@ showFleet: function () {
 			}
 			
 		},
-		
 		error: function (error) {
 			console.log(error);
 		}
@@ -484,47 +485,57 @@ showFleet: function () {
 	
 },
 
-createTruckInformation: function () {
+createTruckInformation: function (position) {
+	
+	console.log(position);
 	
 	var controller = this;
 	var alertPanel = sap.ui.getCore().byId("alertPanel");
 	alertPanel.destroyContent();
 	
-	console.log("check");
+	jQuery.ajax({
+		url: "/VolvoHackathon-App/java/alert/1",
+		method: 'GET', 
+		dataType: 'json',
+		success: function (response) {
 	
-//	var truckMap = new google.maps.Map(document.getElementById('alertMap'), {
-//		center: {lat: truck.lat, lng: truck.lng},
-//		zoom: 6
-//	});
-	
-	var truckInfoArray = [
-		{
-			text: "Driver Score",
-			value: 80
+			var truck = response;
+			
+			var truckMap = new google.maps.Map(document.getElementById('alertMap'), {
+				center: {lat: position.lat, lng: position.lng},
+				zoom: 6
+			});
+
+			marker = new google.maps.Marker({
+				 position: new google.maps.LatLng(position.lat, position.lng),
+			     map: controller.overviewMap,
+			     icon: 'resources/images/truck_icon.png'
+			 });
+
 		},
-		{
-			text: "Asset Score",
-			value: 20
-		},
-		{
-			text: "Gep Score",
-			value: 30
+		error: function (error) {
+			console.log(error);
 		}
-	];
+	});
+	
+	var truckInfoArray = [];
+	truckInfoArray.push({text: "Driver Score:", value: truck.information.driverScore});
+	truckInfoArray.push({text: "Asset Score:", value: truck.information.assetScore});
+	truckInfoArray.push({text: "Geo Score:", value: truck.information.geoScore});
 	
 	for (var i = 0; i < truckInfoArray.length; i++) {
 		
 		var sliderElement = new sap.m.VBox({
 			items: [
 				new sap.m.Text({
-					text: truckInfoArray[i].text + ": " + truckInfoArray[i].value + "%"
+					text: truckInfoArray[i].text + truckInfoArray[i].value + "%"
 				}).addStyleClass("dashboardTileText"),
 				new sap.m.Slider({
 					width: "250px",
 					value: truckInfoArray[i].value
 				})
 			]
-		}).addStyleClass("dashboardTileMargin");
+		}).addStyleClass("alertSlider");
 		
 		var alertHBox = new sap.m.HBox({});
 		var alertVBox = new sap.m.VBox({})
@@ -534,8 +545,91 @@ createTruckInformation: function () {
 		alertPanel.addContent(alertHBox);
 		
 	}
+	
+	var alertIssueVBox = new sap.m.VBox({});
+	var probability = new sap.m.HBox({
+		
+	});
+	
+	var alertProbHBox = new sap.m.HBox({
+		justifyContent: "Center",
+		items: [
+			new sap.m.Text({
+				text: truck.propabilityOfDamage + "%"
+			}).addStyleClass("alertActions")
+		]
+	});
+	
+	var alertIssueHBox = new sap.m.HBox({
+		items: [
+			new sap.m.VBox({
+				justifyContent: "Center",
+				items: [
+					new sap.m.Panel({
+						width: "280px",
+						height: "180px",
+						content: [
+							new sap.m.HBox({
+								justifyContent: "Center",
+								height: "100%",
+								items: [
+									new sap.m.VBox({
+										justifyContent: "Center",
+										items: [
+											new sap.m.Text({
+												text: "Call Driver",
+											}).addStyleClass("alertActions")
+										]
+									})
+								]
+							})
+						]
+					}).addStyleClass("dashboardTileMargin"),
+					new sap.m.Panel({
+						width: "280px",
+						height: "180px",
+						content: [
+							new sap.m.HBox({
+								justifyContent: "Center",
+								height: "100%",
+								items: [
+									new sap.m.VBox({
+										justifyContent: "Center",
+										items: [
+											new sap.m.Text({
+												text: "Plan Inspection",
+											}).addStyleClass("alertActions")
+										]
+									})
+								]
+							})
+						]
+					}).addStyleClass("dashboardTileMargin"),
+					new sap.m.Panel({
+						width: "280px",
+						height: "180px",
+						content: [
+							new sap.m.HBox({
+								justifyContent: "Center",
+								height: "100%",
+								items: [
+									new sap.m.VBox({
+										justifyContent: "Center",
+										items: [
+											new sap.m.Text({
+												text: "Detailed Log",
+											}).addStyleClass("alertActions")
+										]
+									})
+								]
+							})
+						]
+					}).addStyleClass("dashboardTileMargin")
+				]
+			})
+		]
+	})
 
 }
-
 
 });

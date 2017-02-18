@@ -1,6 +1,5 @@
 package com.deloitte.classes.soap;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -12,10 +11,6 @@ import javax.xml.soap.SOAPConnectionFactory;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPMessage;
 import javax.xml.soap.SOAPPart;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
 
 import com.deloitte.classes.datamodel.ColourCode;
 import com.deloitte.classes.datamodel.Fleet;
@@ -137,6 +132,7 @@ public class SoapDynafleet extends TimerTask {
 			fleet.numberInCheckPointRange = 32;
 			fleet.numberOfHarshBrakes = 30;
 			fleet.numberOfHoursIdle = 12;
+			fleet.numberOfLockBreaches = 1;
 			fleet.numberOfShocks = 321;
 			fleet.numberOfSpeedingBreaches = 3;
 			fleet.colourInCheckPointRange = ColourCode.GREEN;

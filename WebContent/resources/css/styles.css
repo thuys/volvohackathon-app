@@ -33,6 +33,13 @@
 	background: #bfbfbf;
 }
 
+.alertSlider {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 .dashboardTileText {
 	font-family: 'Volvo';
 	font-size: 2em;
@@ -46,4 +53,14 @@
 #map {
 	height: 100%;
 	width: 100%;
+}
+
+#alertMap {
+	height: 100%;
+	width: 100%;
+}
+
+.alertActions {
+	font-family: 'Volvo' !important;
+	font-size: 3em !important;
 }
