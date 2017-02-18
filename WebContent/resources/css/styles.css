@@ -17,6 +17,18 @@
     height: 0px;
 }
 
+#harshBrakes, #speedingBreaches, #attentionZones, #shocks {
+	background-color:rgb(230,80,17) !important;
+}
+
+#checkPointRange, #UnusualAreas {
+	background-color:rgb(149,179,66) !important;
+}
+
+#idling, #lockBreaches {
+	background-color:rgb(212,121,38) !important;
+}
+
 .sapMPageHeader::before {
     border-top-width: 0rem;
 }
@@ -30,7 +42,6 @@
 	margin-bottom: 7.5px;
 	margin-left: 7.5px;
 	margin-right: 7.5px;
-	background: #bfbfbf;
 }
 
 .alertSlider {

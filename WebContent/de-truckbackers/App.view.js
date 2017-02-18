@@ -93,9 +93,6 @@ sap.ui.jsview("de-truckbackers.App", {
 															content: '<div id="reportMap"></div>'
 														})
 													]
-												}),
-												new sap.m.Panel({
-													id: "reportPanel",
 												})
 											]
 										})
