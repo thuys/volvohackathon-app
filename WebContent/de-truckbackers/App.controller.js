@@ -565,13 +565,71 @@ createTruckInformation: function (position) {
 			new sap.m.VBox({
 				justifyContent: "Center",
 				items: [
+					new sap.m.Panel({
+						width: "280px",
+						height: "180px",
+						content: [
+							new sap.m.HBox({
+								justifyContent: "Center",
+								height: "100%",
+								items: [
+									new sap.m.VBox({
+										justifyContent: "Center",
+										items: [
+											new sap.m.Text({
+												text: "Call Driver",
+											}).addStyleClass("alertActions")
+										]
+									})
+								]
+							})
+						]
+					}).addStyleClass("dashboardTileMargin"),
+					new sap.m.Panel({
+						width: "280px",
+						height: "180px",
+						content: [
+							new sap.m.HBox({
+								justifyContent: "Center",
+								height: "100%",
+								items: [
+									new sap.m.VBox({
+										justifyContent: "Center",
+										items: [
+											new sap.m.Text({
+												text: "Plan Inspection",
+											}).addStyleClass("alertActions")
+										]
+									})
+								]
+							})
+						]
+					}).addStyleClass("dashboardTileMargin"),
+					new sap.m.Panel({
+						width: "280px",
+						height: "180px",
+						content: [
+							new sap.m.HBox({
+								justifyContent: "Center",
+								height: "100%",
+								items: [
+									new sap.m.VBox({
+										justifyContent: "Center",
+										items: [
+											new sap.m.Text({
+												text: "Detailed Log",
+											}).addStyleClass("alertActions")
+										]
+									})
+								]
+							})
+						]
+					}).addStyleClass("dashboardTileMargin")
 				]
 			})
-
 		]
 	})
 
 }
-
 
 });
