@@ -115,6 +115,12 @@
     <servlet-name>AlertManagement</servlet-name>
     <servlet-class>com.deloitte.classes.json.AlertManagement</servlet-class>
   </servlet>
+  <servlet>
+    <description></description>
+    <display-name>HeatMap</display-name>
+    <servlet-name>HeatMap</servlet-name>
+    <servlet-class>com.deloitte.classes.json.HeatMap</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>OverviewServlet</servlet-name>
@@ -133,6 +139,11 @@
   <servlet-mapping>
     <servlet-name>AlertManagement</servlet-name>
     <url-pattern>/java/alert/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>HeatMap</servlet-name>
+    <url-pattern>/java/heat/*</url-pattern>
   </servlet-mapping>
 
 </web-app>
