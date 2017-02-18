@@ -346,53 +346,6 @@ createDashboard: function (data) {
 },
 
 //#MAP FUNCTIONS
-addMarkers: function () {
-	
-	var controller = this;
-	
-	var locations = [
-	      ['Brugess', 51.21460,3.22405],
-	      ['Antwerpen', 51.21728,4.41728],
-	      ['Bruxelles', 50.84056,4.36772]
-	];
-
-	var infowindow = new google.maps.InfoWindow();
-
-	var marker, i;
-
-	for (i = 0; i < locations.length; i++) { 
-		 marker = new google.maps.Marker({
-			 position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-		     map: controller.overviewMap,
-		     icon: 'resources/images/truck_icon.png'
-		 });
-		 
-		 google.maps.event.addListener(marker, 'click', (function(marker, i) {
-			return function() {
-				
-				infowindow.setContent(locations[i][0]);
-			    infowindow.open(controller.overviewMap, marker);
-			    
-			    //sap.ui.getCore().byId("alertManagement").setEnabled(true);
-			    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
-			    
-			    controller.createTruckInformation();
-			    
-			}
-		 })(marker, i));
-	}
-	
-	var triangleCoords = [
-	      {lat: 25.774, lng: -80.190},
-	      {lat: 18.466, lng: -66.118},
-	      {lat: 32.321, lng: -64.757},
-	      {lat: 34.321, lng: -62.757}
-	  ];
-	
-	this.positionGeofence(triangleCoords);
-	
-},
-
 positionGeofence: function () {
 	
 	var coordinates = [
@@ -439,11 +392,6 @@ showFleet: function () {
 			
 			for(var i = 0; i < trucks.length; i++) {
 				
-				var position = {
-						lat: trucks[i].position.lat,
-						lng: trucks[i].position.lng
-				};
-				
 				marker = new google.maps.Marker({
 					 position: new google.maps.LatLng(trucks[i].position.lat, trucks[i].position.lng),
 				     map: controller.overviewMap,
@@ -452,6 +400,11 @@ showFleet: function () {
 				 
 				 google.maps.event.addListener(marker, 'click', (function(marker, i) {
 					return function() {
+						
+						var position = {
+								lat: trucks[i].position.lat,
+								lng: trucks[i].position.lng
+						};
 						
 					    sap.ui.getCore().byId("alertManagement").setEnabled(true);
 					    var bar = sap.ui.getCore().byId("appTabBar").setSelectedKey("alertManagement");
@@ -490,7 +443,6 @@ createTruckInformation: function (position) {
 		success: function (response) {
 	
 			var truck = response;
-			console.log(response);
 
 			marker = new google.maps.Marker({
 				 position: new google.maps.LatLng(position.lat, position.lng),
@@ -608,12 +560,54 @@ createTruckInformation: function (position) {
 			alertHBox.addItem(alertIssueVBox);
 			
 			alertPanel.addContent(alertHBox);
+			
+			controller.displayCheckpoints(truck);
+			
 		},
 		error: function (error) {
 			console.log(error);
 		}
 	});
+},
 
+displayCheckpoints: function (truck) {
+	
+	var controller = this;
+	var checkpoints = truck.information.checkPoints;
+	console.log(truck);
+	console.log(checkpoints);
+	
+	var bool = false;
+
+	for(var i= 0; i < checkpoints.length; i++) {
+		
+		var checkpoint = checkpoints[i];
+		
+		if (checkpoint.doneStatus == "done") {
+			colour = "#0022FF";
+		}
+		else if (checkpoint.doneStatus == "current") {
+			colour = "#08FA00";
+		}
+		else {
+			colour = "#6B6E85";
+		}
+
+		var circle = new google.maps.Circle({
+		      strokeColor: colour,
+		      strokeOpacity: 0.8,
+		      strokeWeight: 2,
+		      fillColor: colour,
+		      fillOpacity: 0.35,
+		      map: controller.alertMap,
+		      center: checkpoint.position,
+		      radius: 20000
+		});
+		
+		console.log(controller.alertMap);
+		
+	}
+	
 }
 
 });

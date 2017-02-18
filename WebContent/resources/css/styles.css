@@ -94,6 +94,16 @@
 	padding-right: 10px;
 }
 
+.tileStyleSingle {
+	background: #bfbfbf;
+	margin-left: 10px;
+	margin-right: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 .sapMITBSelected>.sapMITBContentArrow {
 	border-bottom-color: #ffffff !important;
 }
