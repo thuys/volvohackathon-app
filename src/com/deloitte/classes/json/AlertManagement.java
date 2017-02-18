@@ -14,6 +14,7 @@ import com.deloitte.classes.datamodel.ColourCode;
 import com.deloitte.classes.datamodel.Fleet;
 import com.deloitte.classes.datamodel.Position;
 import com.deloitte.classes.datamodel.Truck;
+import com.deloitte.classes.datamodel.TruckInfoColour;
 import com.deloitte.classes.datamodel.TruckInformation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -97,6 +98,10 @@ public class AlertManagement extends HttpServlet {
 			truck.information.driverScore = 81;
 			truck.information.assetScore = 23;
 			truck.information.geoScore = 3;
+			
+			truck.information.driverScoreColour = TruckInfoColour.Error;
+			truck.information.assetScoreColour = TruckInfoColour.Warning;
+			truck.information.geoScoreColour = TruckInfoColour.Success;
 			truck.information.propabilityOfDamage = 0.02;
 			
 		} else if (nrInteger % 3 == 2) {
@@ -118,6 +123,9 @@ public class AlertManagement extends HttpServlet {
 			truck.information.driverScore = 61;
 			truck.information.assetScore = 76;
 			truck.information.geoScore = 52;
+			truck.information.driverScoreColour = TruckInfoColour.Warning;
+			truck.information.assetScoreColour = TruckInfoColour.Error;
+			truck.information.geoScoreColour = TruckInfoColour.Warning;
 			truck.information.propabilityOfDamage = 0.44;
 			
 		} else {
@@ -142,6 +150,9 @@ public class AlertManagement extends HttpServlet {
 			truck.information.driverScore = 14;
 			truck.information.assetScore = 83;
 			truck.information.geoScore = 47;
+			truck.information.driverScoreColour = TruckInfoColour.Success;
+			truck.information.assetScoreColour = TruckInfoColour.Error;
+			truck.information.geoScoreColour = TruckInfoColour.Warning;
 			truck.information.propabilityOfDamage = 0.63;
 				
 		}

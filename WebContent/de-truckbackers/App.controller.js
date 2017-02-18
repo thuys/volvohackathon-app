@@ -382,7 +382,7 @@ showFleet: function () {
 	});
 	
 	jQuery.ajax({
-		url: "/VolvoHackathon-App/java/fleet/1",
+		url: "/VolvoHackathon-App/java/fleet/"+Math.floor(Math.random() * 3) + 1  ,
 		method: 'GET', 
 		dataType: 'json',
 		success: function (response) {
@@ -438,7 +438,7 @@ createTruckInformation: function (position) {
 	});
 	
 	jQuery.ajax({
-		url: "/VolvoHackathon-App/java/alert/1",
+		url: "/VolvoHackathon-App/java/alert/" +Math.floor(Math.random() * 1000),
 		method: 'GET', 
 		dataType: 'json',
 		success: function (response) {
@@ -452,9 +452,9 @@ createTruckInformation: function (position) {
 			 });
 			
 			var truckInfoArray = [];
-			truckInfoArray.push({text: "Driver Score:", value: truck.information.driverScore});
-			truckInfoArray.push({text: "Asset Score:", value: truck.information.assetScore});
-			truckInfoArray.push({text: "Geo Score:", value: truck.information.geoScore});
+			truckInfoArray.push({text: "Driver Score:", value: truck.information.driverScore, colourcode : truck.information.driverScoreColour});
+			truckInfoArray.push({text: "Asset Score:", value: truck.information.assetScore, colourcode : truck.information.assetScoreColour});
+			truckInfoArray.push({text: "Geo Score:", value: truck.information.geoScore, colourcode : truck.information.geoScoreColour});
 			
 			var alertHBox = new sap.m.HBox({});
 			var alertStatsVBox = new sap.m.VBox({}).addStyleClass("tileStyleLeft");
@@ -464,11 +464,14 @@ createTruckInformation: function (position) {
 				var sliderElement = new sap.m.VBox({
 					items: [
 						new sap.m.Text({
-							text: truckInfoArray[i].text + truckInfoArray[i].value + "%"
+							text: truckInfoArray[i].text
 						}).addStyleClass("dashboardTileText"),
-						new sap.m.Slider({
+						new sap.m.ProgressIndicator({
 							width: "250px",
-							value: truckInfoArray[i].value
+							percentValue: truckInfoArray[i].value,
+							enabled: false,
+							state:truckInfoArray[i].colourcode,
+							displayValue:truckInfoArray[i].value + "%"
 						})
 					]
 				}).addStyleClass("alertSlider");
@@ -482,7 +485,7 @@ createTruckInformation: function (position) {
 				justifyContent: "Center",
 				items: [
 					new sap.m.Text({
-						text: "Probability of Damage: " + truck.information.propabilityOfDamage + "%"
+						text: "Probability of Damage: " + truck.information.propabilityOfDamage*100 + "%"
 					}).addStyleClass("alertActions")
 				]
 			});

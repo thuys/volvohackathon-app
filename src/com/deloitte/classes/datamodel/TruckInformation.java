@@ -6,9 +6,16 @@ public class TruckInformation {
 	public ArrayList<CheckPoint> checkPoints = new ArrayList<CheckPoint>();
 	public boolean isInCheckPoint = true;
 	public int driverScore = 0;
+	public TruckInfoColour driverScoreColour = TruckInfoColour.Error;
+	
 	public int assetScore = 0;
+	public TruckInfoColour assetScoreColour = TruckInfoColour.Warning;
+	
 	public int geoScore = 0;
+	public TruckInfoColour geoScoreColour = TruckInfoColour.Success;
 	public double propabilityOfDamage = 0.01;
+	
+	
 //	public int numberOfSpeedingBreaches = 0;
 //	public int numberOfTrucksIdle = 0;
 //	public int numberOfShocks = 0;

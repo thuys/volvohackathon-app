@@ -75,7 +75,7 @@ public class FleetInformation extends HttpServlet {
         HashMap<Integer, Fleet> fleetinfo = dynafleet.getFleet();
         Fleet fleet = fleetinfo.get(fleetinfo.size()-1);
         System.out.println(gson.toJson(fleet));
-        if(fleet == null || fleet.trucks == null || fleet.trucks.size()==0){
+        if(fleet == null || fleet.trucks == null || fleet.trucks.size()<4){
         	response.getWriter().println(INITIAL_FLEET_DATA);
         }else{
         	response.getWriter().println(gson.toJson(fleet));
