@@ -32,7 +32,7 @@ onAfterRendering: function() {
 	
 	var controller = this;
 	
-	//this.showLogin();
+	this.showLogin();
 	controller.showFleet();
 	
 	controller.overviewMap = new google.maps.Map(document.getElementById('map'), {
