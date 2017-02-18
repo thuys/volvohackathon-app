@@ -8,7 +8,7 @@ import org.w3c.dom.NodeList;
 public class SoapLogout {
 	
 	public static void getBody(SOAPBody body, String login) throws Exception{
-		SOAPElement soapBodyElem1 = body.addChildElement("getNewTrackingDataV2", "typ");
+		SOAPElement soapBodyElem1 = body.addChildElement("logout", "typ");
 		
         	SOAPElement soapBodyElem2 = soapBodyElem1.addChildElement("Api_SessionId_1");
         
@@ -17,7 +17,6 @@ public class SoapLogout {
 	}
 	
 	public static String InterpreteBody(SOAPBody body)throws Exception{
-		NodeList ele = body.getElementsByTagName("id");
-		return ele.item(0).getTextContent();
+		return "";
 	}
 }

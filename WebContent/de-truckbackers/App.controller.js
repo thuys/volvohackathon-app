@@ -440,7 +440,7 @@ showFleet: function () {
 				marker = new google.maps.Marker({
 					 position: new google.maps.LatLng(trucks[i].position.lat, trucks[i].position.lng),
 				     map: controller.overviewMap,
-				     icon: trucks[i].status == ' ' ? 'resources/images/truck_icon_green.png' : (trucks[i].status == 'RED' ? 'resources/images/truck_icon_red.png':'resources/images/truck_icon_orange.png')
+				     icon: trucks[i].status == 'GREEN' ? 'resources/images/truck_icon_green.png' : (trucks[i].status == 'RED' ? 'resources/images/truck_icon_red.png':'resources/images/truck_icon_orange.png')
 				 });
 				 
 				 google.maps.event.addListener(marker, 'click', (function(marker, i) {

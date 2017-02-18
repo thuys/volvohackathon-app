@@ -16,8 +16,8 @@ public class SoapLogin {
         SOAPElement soapGmtoffsetElem = soapBodyElem3.addChildElement("value");
         soapGmtoffsetElem.addTextNode("1");
         
-        soapBodyElem4.addTextNode("ApiVolvoHack013");
-        soapBodyElem5.addTextNode("ApiVolvoHack13");
+        soapBodyElem4.addTextNode("ApiVolvoHack014");
+        soapBodyElem5.addTextNode("ApiVolvoHack14");
 	}
 	
 	public static String InterpreteBody(SOAPBody body)throws Exception{

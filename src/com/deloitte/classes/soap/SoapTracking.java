@@ -23,13 +23,15 @@ public class SoapTracking {
 		        	soapBodyElem3.addTextNode(login);
 	}
 	
-	public static HashMap<String,Truck> InterpreteBody(SOAPBody body, HashMap<String,Truck> truckMap)throws Exception{
-
+	public static HashMap<String,Truck> InterpreteBody(SOAPBody body){
+		HashMap<String,Truck> truckMap = new HashMap<String, Truck>();
 		NodeList result = body.getElementsByTagName("result").item(0).getChildNodes();
+		System.out.println("Amount of found trucks - " + result.getLength());
 		for(int i = 0; i<result.getLength();i++){
-			
-			Truck t = new Truck();	
-			t.information = null;
+						
+			String id = "";
+			Double lng = 0.0;
+			Double lat = 0.0;
 			
 			Node truckArray = result.item(i);
 			NodeList truckArrayNodes = truckArray.getChildNodes();
@@ -37,7 +39,7 @@ public class SoapTracking {
 				Node setting = truckArrayNodes.item(j);
 				switch(setting.getLocalName()){
 				case "vehicleId":
-					t.id = setting.getChildNodes().item(0).getTextContent();
+					id = setting.getChildNodes().item(0).getTextContent();
 					//System.out.println(setting.getLocalName() + " - " + setting.getChildNodes().item(0).getTextContent());
 					break;
 				case "momentaneousVehicleSpeed":
@@ -52,9 +54,9 @@ public class SoapTracking {
 					NodeList positionNodes = setting.getChildNodes();
 					for(int k = 0; k<positionNodes.getLength(); k++){
 						if(positionNodes.item(k).getLocalName().equals("longitude")){
-							t.position.lng = Double.parseDouble(positionNodes.item(k).getChildNodes().item(0).getTextContent());
+							lng = Double.parseDouble(positionNodes.item(k).getChildNodes().item(0).getTextContent());
 						} else if(positionNodes.item(k).getLocalName().equals("latitude")){
-							t.position.lat = Double.parseDouble(positionNodes.item(k).getChildNodes().item(0).getTextContent());
+							lat = Double.parseDouble(positionNodes.item(k).getChildNodes().item(0).getTextContent());
 						}
 						//System.out.println(positionNodes.item(k).getLocalName() + " - " + positionNodes.item(k).getChildNodes().item(0).getTextContent());
 					}
@@ -68,7 +70,17 @@ public class SoapTracking {
 					break;
 				}
 			}
-			truckMap.put(t.id, t);
+			if(truckMap.containsKey(id)){
+				truckMap.get(id).position.lat = lat;
+				truckMap.get(id).position.lng = lng;
+			} else {
+				Truck t = new Truck();
+				t.information = null;
+				t.position.lat = lat;
+				t.position.lng = lng;
+				t.id = id;
+				truckMap.put(id, t);
+			}
 		}
 		return truckMap;
 	}
