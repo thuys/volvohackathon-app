@@ -382,7 +382,7 @@ showFleet: function () {
 	});
 	
 	jQuery.ajax({
-		url: "/VolvoHackathon-App/java/fleet/1",
+		url: "/VolvoHackathon-App/java/fleet/"+Math.floor(Math.random() * 3) + 1  ,
 		method: 'GET', 
 		dataType: 'json',
 		success: function (response) {
@@ -438,7 +438,7 @@ createTruckInformation: function (position) {
 	});
 	
 	jQuery.ajax({
-		url: "/VolvoHackathon-App/java/alert/1",
+		url: "/VolvoHackathon-App/java/alert/" +Math.floor(Math.random() * 1000),
 		method: 'GET', 
 		dataType: 'json',
 		success: function (response) {
@@ -485,7 +485,7 @@ createTruckInformation: function (position) {
 				justifyContent: "Center",
 				items: [
 					new sap.m.Text({
-						text: "Probability of Damage: " + truck.information.propabilityOfDamage + "%"
+						text: "Probability of Damage: " + truck.information.propabilityOfDamage*100 + "%"
 					}).addStyleClass("alertActions")
 				]
 			});
