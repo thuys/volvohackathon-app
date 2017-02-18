@@ -1,6 +1,8 @@
 package com.deloitte.classes.soap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +24,7 @@ public class SoapDynafleet extends TimerTask {
 	private Notification notification = new Notification();
 	private Map<Integer, Fleet> fleetMap;
 	private long lastRun = 0;
-	private ArrayList<Truck> truckList;
+	private HashMap<String, Truck> truckList = new HashMap<String,Truck>();
 
 	public SoapDynafleet(Map<Integer, Fleet> fleetMap){
 		this.fleetMap = fleetMap;
@@ -82,9 +84,9 @@ public class SoapDynafleet extends TimerTask {
         
 
         /* Print the request message */
-        System.out.print("Request SOAP Message = ");
+        /*System.out.print("Request SOAP Message = ");
         soapMessage.writeTo(System.out);
-        System.out.println();
+        System.out.println();*/
 
         return soapMessage;
     }
@@ -111,7 +113,7 @@ public class SoapDynafleet extends TimerTask {
 	        	notification = SoapNotification.InterpreteBody(soapResponse.getSOAPBody());
 	        	break;
 	        case "Tracking":
-	        	truckList = SoapTracking.InterpreteBody(soapResponse.getSOAPBody());
+	        	truckList = SoapTracking.InterpreteBody(soapResponse.getSOAPBody(), truckList);
 	        	break;
         }
     	return returnMessage;       
@@ -125,7 +127,11 @@ public class SoapDynafleet extends TimerTask {
 			RunSoap("Tracking");
 			lastRun = System.currentTimeMillis();
 			Fleet fleet = new Fleet();
-			fleet.trucks = truckList;
+			ArrayList<Truck> truckListArray = new ArrayList<Truck>();
+			for(String key : truckList.keySet()){
+				truckListArray.add(truckList.get(key));
+			}
+			fleet.trucks = truckListArray;
 			fleetMap.put(fleetMap.size(), fleet);
 			fleet.numberIfUnusualAreas = 4;
 			fleet.numberInAttentionZone = 12;
