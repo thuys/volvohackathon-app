@@ -610,7 +610,7 @@ displayCheckpoints: function (truck) {
 	
 },
 
-createHeatMaps: fuction () {
+createHeatMaps: function () {
 	
 	jQuery.ajax({
 		url: "/VolvoHackathon-App/java/fleet/1",
