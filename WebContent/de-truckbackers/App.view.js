@@ -81,7 +81,27 @@ sap.ui.jsview("de-truckbackers.App", {
 								}),
 								new sap.m.IconTabFilter({
 									text: "Reports",
-									content: []
+									content: [
+										new sap.m.VBox({
+											width:"100%",
+											items:[
+												new sap.m.Panel({
+													headerToolbar : [
+														new sap.m.Toolbar({
+															content: [
+																new sap.m.Title({text:'Alert density map'})
+															]
+														})																
+													],
+													content:[
+														new sap.ui.core.HTML({
+															content: '<iframe width="100%" height="600px" src="http://www.openheatmap.com/embed.html?map=PerloffTanseyUnquarrelled" ></iframe>'
+														})
+													]
+												})
+											]
+										})
+									]
 								})
 							]
 						})
