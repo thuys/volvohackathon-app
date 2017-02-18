@@ -40,7 +40,6 @@ onAfterRendering: function() {
 		zoom: 8
 	});
 	
-	//this.addMarkers();
 },
 
 /**
@@ -394,7 +393,15 @@ addMarkers: function () {
 	
 },
 
-positionGeofence: function (coordinates) {
+positionGeofence: function () {
+	
+	var coordinates = [
+	      {lat: 25.774, lng: -80.190},
+	      {lat: 18.466, lng: -66.118},
+	      {lat: 32.321, lng: -64.757},
+	      {lat: 34.321, lng: -62.757}
+	  ];
+	
 	
 	var controller = this;
 	
@@ -530,6 +537,7 @@ createTruckInformation: function (position) {
 			var alertIssueClickHBox = new sap.m.HBox({
 				items: [
 					new sap.m.Panel({
+						id: "callDriverPanel",
 						width: "280px",
 						height: "220px",
 						content: [
@@ -548,7 +556,9 @@ createTruckInformation: function (position) {
 								]
 							})
 						]
-					}).addStyleClass("dashboardTileMargin"),
+					}).addStyleClass("dashboardTileMargin").attachEvent("click", function () {
+						console.log("click");
+					}),
 					new sap.m.Panel({
 						width: "280px",
 						height: "220px",
@@ -598,7 +608,6 @@ createTruckInformation: function (position) {
 			alertHBox.addItem(alertIssueVBox);
 			
 			alertPanel.addContent(alertHBox);
-
 		},
 		error: function (error) {
 			console.log(error);
