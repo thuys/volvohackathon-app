@@ -137,6 +137,7 @@ public class SoapDynafleet extends TimerTask {
 			fleet.numberInCheckPointRange = 32;
 			fleet.numberOfHarshBrakes = 30;
 			fleet.numberOfHoursIdle = 12;
+			fleet.numberOfLockBreaches = 1;
 			fleet.numberOfShocks = 321;
 			fleet.numberOfSpeedingBreaches = 3;
 			fleet.colourInCheckPointRange = ColourCode.GREEN;
