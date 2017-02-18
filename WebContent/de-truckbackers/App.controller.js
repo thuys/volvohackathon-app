@@ -520,27 +520,17 @@ createTruckInformation: function (position) {
 		}
 	});
 	
-	var truckInfoArray = [
-		{
-			text: "Driver Score",
-			value: 80
-		},
-		{
-			text: "Asset Score",
-			value: 20
-		},
-		{
-			text: "Gep Score",
-			value: 30
-		}
-	];
+	var truckInfoArray = [];
+	truckInfoArray.push({text: "Driver Score:", value: truck.information.driverScore});
+	truckInfoArray.push({text: "Asset Score:", value: truck.information.assetScore});
+	truckInfoArray.push({text: "Geo Score:", value: truck.information.geoScore});
 	
 	for (var i = 0; i < truckInfoArray.length; i++) {
 		
 		var sliderElement = new sap.m.VBox({
 			items: [
 				new sap.m.Text({
-					text: truckInfoArray[i].text + ": " + truckInfoArray[i].value + "%"
+					text: truckInfoArray[i].text + truckInfoArray[i].value + "%"
 				}).addStyleClass("dashboardTileText"),
 				new sap.m.Slider({
 					width: "250px",
