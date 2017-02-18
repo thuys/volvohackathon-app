@@ -83,15 +83,15 @@ public class AlertManagement extends HttpServlet {
 			truck.position.lat = 50.887056;
 			truck.position.lng = 4.278951;
 			
-			truck.information.checkPoints.add(new CheckPoint(new Position(53.5844734, 10.0188848), true));
-			truck.information.checkPoints.add(new CheckPoint(new Position(51.9625026, 7.546241), true));
-			truck.information.checkPoints.add(new CheckPoint(new Position(50.8883491, 4.2766091), true));
-			truck.information.checkPoints.add(new CheckPoint(new Position(48.79741, 2.4441275), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(45.8570317, 1.2827131), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(43.5400947, 1.3959146), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(42.9204735, -2.6641959), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(40.5273495, -7.2239721), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(38.7097735, -9.00675), false));
+			truck.information.checkPoints.add(new CheckPoint(new Position(53.5844734, 10.0188848), "done"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(51.9625026, 7.546241), "done"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(50.8883491, 4.2766091), "current"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(48.79741, 2.4441275), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(45.8570317, 1.2827131), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(43.5400947, 1.3959146), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(42.9204735, -2.6641959), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(40.5273495, -7.2239721), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(38.7097735, -9.00675), "ahead"));
 			
 			truck.information.isInCheckPoint = true;
 			truck.information.driverScore = 81;
@@ -108,11 +108,11 @@ public class AlertManagement extends HttpServlet {
 			truck.position.lat = 49.220876;
 			truck.position.lng = 3.975877;
 			
-			truck.information.checkPoints.add(new CheckPoint(new Position(51.2776014, 4.3610318), true));
-			truck.information.checkPoints.add(new CheckPoint(new Position(49.2855436, 3.9802494), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(47.3523456, 5.1625687), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(44.9780056, 4.8839635), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(43.3104101, 5.3656424), false));
+			truck.information.checkPoints.add(new CheckPoint(new Position(51.2776014, 4.3610318), "done"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(49.2855436, 3.9802494), "current"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(47.3523456, 5.1625687), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(44.9780056, 4.8839635), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(43.3104101, 5.3656424), "ahead"));
 
 			truck.information.isInCheckPoint = false;
 			truck.information.driverScore = 61;
@@ -129,14 +129,14 @@ public class AlertManagement extends HttpServlet {
 			truck.position.lat = 47.971990;
 			truck.position.lng = 10.167967;
 			
-			truck.information.checkPoints.add(new CheckPoint(new Position(51.1844368, 3.8170842), true));
-			truck.information.checkPoints.add(new CheckPoint(new Position(49.9060041, 5.3168892), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(49.1558609, 6.2517643), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(47.57046, 7.5853623), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(46.5269191, 8.604714), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(45.3909393, 9.2077403), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(43.7242869, 11.2203412), false));
-			truck.information.checkPoints.add(new CheckPoint(new Position(41.6064001, 13.6350657), false));
+			truck.information.checkPoints.add(new CheckPoint(new Position(51.1844368, 3.8170842), "done"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(49.9060041, 5.3168892), "current"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(49.1558609, 6.2517643), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(47.57046, 7.5853623), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(46.5269191, 8.604714), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(45.3909393, 9.2077403), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(43.7242869, 11.2203412), "ahead"));
+			truck.information.checkPoints.add(new CheckPoint(new Position(41.6064001, 13.6350657), "ahead"));
 			
 			truck.information.isInCheckPoint = false;
 			truck.information.driverScore = 14;
