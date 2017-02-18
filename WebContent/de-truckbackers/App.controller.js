@@ -497,7 +497,7 @@ createTruckInformation: function (position) {
 			truckInfoArray.push({text: "Geo Score:", value: truck.information.geoScore});
 			
 			var alertHBox = new sap.m.HBox({});
-			var alertStatsVBox = new sap.m.VBox({}).addStyleClass("tileStyle");
+			var alertStatsVBox = new sap.m.VBox({}).addStyleClass("tileStyleLeft");
 			
 			for (var i = 0; i < truckInfoArray.length; i++) {
 				
@@ -592,7 +592,7 @@ createTruckInformation: function (position) {
 				]
 			});
 			
-			var alertIssueVBox = new sap.m.VBox({}).addStyleClass("tileStyle");
+			var alertIssueVBox = new sap.m.VBox({}).addStyleClass("tileStyleRight");
 			alertIssueVBox.addItem(alertProbHBox);
 			alertIssueVBox.addItem(alertIssueClickHBox);
 			alertHBox.addItem(alertIssueVBox);
