@@ -17,6 +17,20 @@
     height: 0px;
 }
 
+#HarshBrakes, #speedingBreaches, #attentionZones, #shocks {
+	background-color:rgb(230,80,17);
+}
+
+#checkPointRange, #UnusualAreas {
+	background-color:rgb(149,179,66);
+}
+
+
+
+#idling, #lockBreaches {
+	background-color:rgb(212,121,38);
+}
+
 .sapMPageHeader::before {
     border-top-width: 0rem;
 }
