@@ -515,7 +515,8 @@ createTruckInformation: function (position) {
 						}).addStyleClass("dashboardTileText"),
 						new sap.m.Slider({
 							width: "250px",
-							value: truckInfoArray[i].value
+							value: truckInfoArray[i].value,
+							enabled: false
 						})
 					]
 				}).addStyleClass("alertSlider");
